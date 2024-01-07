@@ -1,0 +1,15 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: franklin-gothic-atf, 'Libre Franklin', sans-serif;
+    font-style: normal;
+    font-weight: 100;
+}
+
+body {
+    background-color: #fff;
+}
