@@ -4,13 +4,10 @@ import Section from "../section/section";
 
 interface CategoryProps {
     children: ReactNode;
-    title: string;
-    category: string;
-    url: string;
     color?: 'purple' | 'blue' | 'pink' | 'gold' | 'default' ;
 }
 
-const CategoryViewall: FC<CategoryProps> = ({ children, url, category, title, color = 'default' }) => {
+const CategoryViewall: FC<CategoryProps> = ({ children, color = 'default' }) => {
     const getColorClass = (color: string) => {
         switch (color) {
             case 'purple':

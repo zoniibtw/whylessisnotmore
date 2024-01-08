@@ -1,110 +1,59 @@
 // src/api/wcApi.ts
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import fs from 'fs';
-import handleLocalData from '../utils/dataHandler';
-import ""
+import axios from 'axios';
 
-interface WooCommerceProduct {
+export interface WooCommerceProduct {
   id: number;
   name: string;
-  categories: { id: number; name: string }[];
-  // Add other product properties as needed
+  description: string;
+  price: string;
+  link: string;
 }
 
-interface WooCommerceCategory {
+export interface WooCommerceCategory {
   id: number;
   name: string;
-  // Add other category properties as needed
+  description: string;
+  price: string;
+  link: string;
 }
 
-interface WooCommerceApiResponse<T> {
-  data: T;
+export interface WooCommerceData {
+  categories: WooCommerceCategory[];
+  products: WooCommerceProduct[];
 }
 
-class WCApi {
-  private api: AxiosInstance;
-  private dataFilePath: string;
+const wcApi = {
+  // Replace 'YOUR_API_BASE_URL' with the actual base URL of your WooCommerce API
+  baseUrl: 'YOUR_API_BASE_URL',
 
-  constructor() {
-    this.api = axios.create({
-      baseURL: 'https://your-woocommerce-store-url/wp-json/wc/v3',
-      // Add your authentication headers if required
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer YOUR_API_KEY', // Uncomment and replace with your actual API key
-      },
-    });
-
-    // Set the path for the WooCommerce data file
-    this.dataFilePath = '../../public/wcData.json';
-
-    // Fetch data initially
-    this.fetchAndSaveData();
-
-    // Set up an interval to fetch and save data every 30 minutes (30 * 60 * 1000 milliseconds)
-    setInterval(() => this.fetchAndSaveData(), 30 * 60 * 1000);
-  }
-
-  private async handleRequest<T>(request: Promise<AxiosResponse<T>>): Promise<T> {
+  async getAllData(selectedCategory: string | null): Promise<WooCommerceData> {
     try {
-      const response = await request;
+      // Make API request to fetch categories and products based on the selected category
+      const response = await axios.get<WooCommerceData>(
+        `${this.baseUrl}/wp-json/wc/v3/products?category=${selectedCategory}`
+      );
+
       return response.data;
     } catch (error) {
-      // Handle errors (e.g., log, throw custom error, etc.)
-      console.error('API request error:', error);
+      console.error('Error fetching WooCommerce data:', error);
       throw error;
     }
-  }
+  },
 
-  private saveDataToFile(data: any): void {
-    // Save the data to the WooCommerce data file
-    fs.writeFileSync(this.dataFilePath, JSON.stringify(data, null, 2), 'utf-8');
-  }
-
-  private async fetchAndSaveData(): Promise<void> {
+  async getDistinctCategories(): Promise<string[]> {
     try {
-      const categories = await this.getCategories();
-      const products = await this.getProductsByCategory(0); // Change the category ID as needed
+      // Make API request to fetch distinct categories
+      const response = await axios.get<WooCommerceCategory[]>(
+        `${this.baseUrl}/wp-json/wc/v3/products/categories`
+      );
 
-      // Use handleLocalData to merge and save the WooCommerce data
-      handleLocalData('wcData.json', { categories, products });
-
-      console.log('WooCommerce data fetched and saved successfully.');
+      const distinctCategories = response.data.map(category => category.name);
+      return distinctCategories;
     } catch (error) {
-      console.error('Error fetching and saving WooCommerce data:', error);
+      console.error('Error fetching distinct categories:', error);
+      throw error;
     }
-  }
-
-  public async getCategories(): Promise<WooCommerceCategory[]> {
-    const request = this.api.get<WooCommerceCategory[]>('/products/categories');
-    return this.handleRequest<WooCommerceCategory[]>(request);
-  }
-
-  public async getProductsByCategory(categoryId: number): Promise<WooCommerceProduct[]> {
-    const request = this.api.get<WooCommerceProduct[]>('/products', {
-      params: {
-        category: categoryId,
-      },
-    });
-    return this.handleRequest<WooCommerceProduct[]>(request);
-  }
-
-  public async getAllData(): Promise<{ categories: WooCommerceCategory[]; products: WooCommerceProduct[] }> {
-    // Try to read data from the WooCommerce data file
-    try {
-      const localData = fs.readFileSync(this.dataFilePath, 'utf-8');
-      return JSON.parse(localData);
-    } catch (error) {
-      // If there is an error reading the file or parsing JSON, return an empty object
-      console.error('Error reading WooCommerce data file:', error);
-      return { categories: [], products: [] };
-    }
-  }
-
-  // Add more methods for other WooCommerce API endpoints as needed
-}
-
-// Singleton pattern to ensure a single instance of the API throughout the app
-const wcApi = new WCApi();
+  },
+};
 
 export default wcApi;

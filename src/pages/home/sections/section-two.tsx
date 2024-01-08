@@ -15,7 +15,7 @@ function SectionTwo() {
                 color="purple"
                 title="Shop the curration"
                 category="Interiors"
-                url=""
+                url="/interiors"
             >
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="purple" link="s" />
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="purple" link="s" />

@@ -15,7 +15,7 @@ function SectionFive() {
                 color="pink"
                 title="Highlights"
                 category="The journal"
-                url=""
+                url="/journal"
             >
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />

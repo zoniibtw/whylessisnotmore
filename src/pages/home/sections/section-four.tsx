@@ -15,7 +15,7 @@ function SectionFour() {
                 color="gold"
                 title="Book the curration"
                 category="Hotels"
-                url=""
+                url="/hotels"
             >
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" />
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" />
