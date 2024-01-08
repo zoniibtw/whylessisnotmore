@@ -17,9 +17,9 @@ function SectionFive() {
                 category="The journal"
                 url=""
             >
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" link="s" />
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />
             </CategoryItems>
         </div>
      );

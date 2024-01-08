@@ -20,7 +20,7 @@ function Header() {
                         <button onClick={() => scrollTo('hotels')}><span>Hotels</span></button>
                     </div>
 
-                    <div className="">
+                    <div className="flex items-center">
                         <Link to="">
                             <h1 className="font-[22px] leading-[22px] text-black uppercase">Whylessisnotmore</h1>
                         </Link>

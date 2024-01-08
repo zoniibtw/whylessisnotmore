@@ -10,7 +10,7 @@ interface CategoryProps {
     color?: 'purple' | 'blue' | 'pink' | 'gold' | 'default' ;
 }
 
-const CategoryItems: FC<CategoryProps> = ({ children, url, category, title, color = 'default' }) => {
+const CategoryViewall: FC<CategoryProps> = ({ children, url, category, title, color = 'default' }) => {
     const getColorClass = (color: string) => {
         switch (color) {
             case 'purple':
@@ -30,17 +30,7 @@ const CategoryItems: FC<CategoryProps> = ({ children, url, category, title, colo
         <div className={`${getColorClass( color )}`}>
             <Section>
                 <div className="w-full flex">
-                    <div className="w-[30%] flex justify-start items-center pb-[14%]">
-                        <div className="flex flex-col text-center gap-3">
-                            <h3 className="text-[20px] leading-[20px] text-black">{category}</h3>
-                            <h2 className="text-[28px] leading-[28px] text-black">{title}</h2>
-                            <Link className="underline underline-offset-1" to={url}>
-                                <span className="text-[20px] leading-[20px] text-blacks">View all</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="w-full grid grid-cols-3 grid-rows-1 gap-x-10">
+                    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10">
                         {children}
                     </div>
                 </div>
@@ -49,4 +39,4 @@ const CategoryItems: FC<CategoryProps> = ({ children, url, category, title, colo
      );
 }
 
-export default CategoryItems;
+export default CategoryViewall;
