@@ -1,4 +1,3 @@
-// src/utils/dataHandler.ts
 import fs from 'fs';
 
 interface WooCommerceCategory {
@@ -12,13 +11,24 @@ interface WooCommerceProduct {
   categories: { id: number; name: string }[];
 }
 
-interface LocalData {
-  categories: WooCommerceCategory[];
-  products: WooCommerceProduct[];
+interface WordPressPost {
+  id: number;
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
 }
 
-const handleLocalData = (newData: Partial<LocalData>): void => {
-  const filePath = './localData.json';
+interface LocalData {
+  categories?: WooCommerceCategory[];
+  products?: WooCommerceProduct[];
+  posts?: WordPressPost[];
+}
+
+const handleLocalData = (fileName: string, newData: Partial<LocalData>): void => {
+  const filePath = `./${fileName}`;
 
   try {
     // Try to read the existing data from the local file
@@ -26,16 +36,16 @@ const handleLocalData = (newData: Partial<LocalData>): void => {
 
     // Merge the new data with the existing data
     const mergedData: LocalData = {
-      categories: [...existingData.categories, ...(newData.categories || [])],
-      products: [...existingData.products, ...(newData.products || [])],
+      ...existingData,
+      ...newData,
     };
 
     // Save the merged data back to the local file
     fs.writeFileSync(filePath, JSON.stringify(mergedData, null, 2), 'utf-8');
 
-    console.log('Data successfully merged and saved.');
+    console.log(`${fileName} data successfully merged and saved.`);
   } catch (error) {
-    console.error('Error handling local data:', error);
+    console.error(`Error handling ${fileName} data:`, error);
   }
 };
 
