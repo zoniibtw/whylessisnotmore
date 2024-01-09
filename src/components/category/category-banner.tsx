@@ -4,7 +4,7 @@ interface BannerProps {
     title: string;
     text: string;
     image: string;
-    color?: 'purple' | 'blue' | 'pink' | 'gold' | 'default';
+    color?: 'purple' | 'blue' | 'pink' | 'gold' | 'green' | 'default';
     flow?: 'reverse' | 'default';
 }
 
@@ -19,6 +19,8 @@ const CategoryBanner: FC<BannerProps> = ({ title, text, image, color = 'default'
             return 'bg-strong-pink';
         case 'gold':
             return 'bg-strong-gold';
+        case 'green':
+            return 'bg-[#4D5E4C]';
         default:
             return 'bg-white';
         }
