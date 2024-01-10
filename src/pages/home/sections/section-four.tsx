@@ -17,9 +17,9 @@ function SectionFour() {
                 category="Hotels"
                 url="/hotels"
             >
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" />
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
             </CategoryItems>
         </div>
      );

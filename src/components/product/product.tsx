@@ -1,5 +1,5 @@
+import React from 'react';
 import Image from "../../assets/product-test.jpg";
-import Star from "../../assets/svg/star.svg";
 
 interface ProductProps {
     name: string;
@@ -8,6 +8,7 @@ interface ProductProps {
     link: string;
     type?: 'hotel' | 'journal' | 'standard';
     color?: 'purple' | 'blue' | 'pink' | 'gold';
+    onToggleWishlist: () => void;
 }
 
 function Product(props: ProductProps) {
@@ -107,6 +108,7 @@ function Product(props: ProductProps) {
                 </button>
                 <button
                     className={`bg-none flex relative justify-center py-3 ${getColorClassTwo(props.color)} border-2 text-[20px] leading-[20px] text-black`}
+                    onClick={props.onToggleWishlist}
                 >
                     <svg className={`absolute left-0 pl-3 w-8 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.5 3.25071L13.2735 8.70902L13.4643 9.29635H14.0819H19.8211L15.178 12.6698L14.6784 13.0328L14.8692 13.6201L16.6427 19.0784L11.9996 15.705L11.5 15.342L11.0004 15.705L6.35727 19.0784L8.13078 13.6201L8.32162 13.0328L7.822 12.6698L3.17888 9.29635H8.91809H9.53565L9.72649 8.70902L11.5 3.25071Z" stroke={`${getColorClassThree(props.color)}`} stroke-width="1.7"/>

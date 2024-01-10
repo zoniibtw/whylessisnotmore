@@ -100,6 +100,7 @@ function Category({ selectedCategory }: CategoryProps) {
             desc={product.description}
             price={product.price}
             link={product.link}
+            onToggleWishlist={() => onToggleWishlist(index)}
           />
         ))}
       </CategoryViewall>

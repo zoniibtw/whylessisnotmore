@@ -17,9 +17,9 @@ function SectionTwo() {
                 category="Style"
                 url="/style"
             >
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="blue" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="blue" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="blue" link="s" />
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="blue" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="blue" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="blue" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
             </CategoryItems>
         </div>
      );

@@ -17,9 +17,9 @@ function SectionFive() {
                 category="The journal"
                 url="/journal"
             >
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" />
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
             </CategoryItems>
         </div>
      );
