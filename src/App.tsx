@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './components';
 import { Home, Category, Journal, WishList, Story } from './pages';
