@@ -5,28 +5,34 @@ import { CategoryBanner, CategoryViewall, Product } from '../../components';
 import InteriorsImage from '../../assets/wepb/categories/interior.webp';
 import StyleImage from '../../assets/wepb/categories/style.webp';
 import HotelImage from '../../assets/wepb/categories/hotel.webp';
+import useScrollToTop from '../../utils/useScrollToTop';
 
 interface CategoryProps {
   selectedCategory: string | null;
+  // Add type and color props here
+  type?: 'hotel' | 'journal' | 'standard';
+  color?: 'purple' | 'blue' | 'gold' | 'pink';
 }
-
-// Define the type for category colors
-type CategoryColor = 'purple' | 'blue' | 'gold' | 'pink' | 'default';
 
 interface ProductProps {
   id: number;
   name: string;
-  // Add actual properties from your WooCommerceProduct type
   description: string;
   price: number;
   link: string;
+  // Add type and color props here
+  type?: 'hotel' | 'journal' | 'standard';
+  color?: 'purple' | 'blue' | 'gold' | 'pink';
 }
 
-function Category({ selectedCategory }: CategoryProps) {
+function Category({ selectedCategory, type, color }: CategoryProps) {
+  useScrollToTop();
   const [categories, setCategories] = useState<string[]>([]);
   const [products, setProducts] = useState<WooCommerceProduct[]>([]);
   const [categoryImage, setCategoryImage] = useState<string | null>(null);
-  const [categoryColor, setCategoryColor] = useState<CategoryColor | null>();
+  const [categoryColor, setCategoryColor] = useState<'purple' | 'blue' | 'gold' | 'pink' | 'default' | null>(
+    null
+  );
   const [categoryTitle, setCategoryTitle] = useState<string>('');
   const [categoryText, setCategoryText] = useState<string>('');
 
@@ -45,7 +51,6 @@ function Category({ selectedCategory }: CategoryProps) {
   }, [selectedCategory]);
 
   useEffect(() => {
-    // Set category-specific properties based on the selected category
     switch (selectedCategory) {
       case 'interiors':
         setCategoryImage(InteriorsImage);
@@ -72,7 +77,6 @@ function Category({ selectedCategory }: CategoryProps) {
         );
         break;
       default:
-        // Set default values or handle other categories
         setCategoryImage(null);
         setCategoryColor(null);
         setCategoryTitle('');
@@ -100,7 +104,19 @@ function Category({ selectedCategory }: CategoryProps) {
             desc={product.description}
             price={product.price}
             link={product.link}
-            onToggleWishlist={() => onToggleWishlist(index)}
+            type={type} // Pass the type prop here
+            color={color} // Pass the color prop here
+          />
+        ))}
+        {[...Array(12)].map((_, index) => (
+          <Product
+            key={index}
+            name="Ellos"
+            desc="Vägghylla Wave"
+            price="€80"
+            link="s"
+            type={type} // Pass the type prop here
+            color={color} // Pass the color prop here
           />
         ))}
       </CategoryViewall>

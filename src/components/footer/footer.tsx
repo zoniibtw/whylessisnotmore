@@ -25,9 +25,6 @@ const MailChimp: React.FC = () => {
     // Mailchimp API key
     const apiKey = "YOUR_MAILCHIMP_API_KEY";
 
-    // Mailchimp list ID
-    const listId = "YOUR_MAILCHIMP_LIST_ID";
-
     // Mailchimp audience ID (optional, depending on your Mailchimp setup)
     const audienceId = "YOUR_MAILCHIMP_AUDIENCE_ID";
 

@@ -6,7 +6,9 @@ function SectionFive() {
         <div id="journal">
             <CategoryBanner
                 title="From the journal"
-                text="From ELLE Sweden contributor to a more personal perspective: Dive into the world of our founder, Louisa Falkenberg, as she spills the beans on Interior Secrets, Hidden Gems, and the Life of a Mom wrangling two tiny toddlers."
+                text="From ELLE Sweden contributor to a more personal perspective: Dive into the world of our founder, 
+                Louisa Falkenberg, as she spills the beans on Interior Secrets, Hidden Gems, and the Life of a 
+                Mom wrangling two tiny toddlers."
                 image={Journal}
                 color="pink"
                 flow="reverse"
@@ -17,9 +19,9 @@ function SectionFive() {
                 category="The journal"
                 url="/journal"
             >
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" onToggleWishlist={() => onToggleWishlist(index)}/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s"/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s"/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s"/>
             </CategoryItems>
         </div>
      );

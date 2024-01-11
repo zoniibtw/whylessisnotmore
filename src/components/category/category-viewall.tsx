@@ -1,5 +1,4 @@
 import React, { ReactNode, FC } from 'react';
-import { Link } from "react-router-dom";
 import Section from "../section/section";
 
 interface CategoryProps {
@@ -27,7 +26,7 @@ const CategoryViewall: FC<CategoryProps> = ({ children, color = 'default' }) => 
         <div className={`${getColorClass( color )}`}>
             <Section>
                 <div className="w-full flex">
-                    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10">
+                    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14">
                         {children}
                     </div>
                 </div>
