@@ -81,7 +81,7 @@ function Product(props: ProductProps) {
         <div className="flex flex-col col-span-1 row-span-1 gap-5">
             <div className={`border-4 ${getColorClassTwo(props.color)}`}>
                 <div
-                    className={`h-[18.75rem] w-full bg-no-repeat bg-cover bg-center`}
+                    className={`h-[14rem] w-full bg-no-repeat bg-cover bg-center`}
                     style={{
                         backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${Image})`,
                     }}
@@ -89,10 +89,10 @@ function Product(props: ProductProps) {
             </div>
 
             <div className="flex flex-col items-center gap-2">
-                <h1 className="text-[28px] leading-[28px] text-black">{props.name}</h1>
-                <p className="text-[20px] leading-[20px] text-black">{props.desc}</p>
+                <h1 className="text-[20px] leading-[22px] text-black">{props.name}</h1>
+                <p className="text-[16px] leading-[16px] text-black">{props.desc}</p>
                 {props.type !== 'hotel' && props.type !== 'journal' && (
-                    <p className="text-[20px] leading-[20px] text-black">{props.price}</p>
+                    <p className="text-[16px] leading-[16px] text-black">{props.price}</p>
                 )}
             </div>
 
@@ -102,15 +102,15 @@ function Product(props: ProductProps) {
                         const url = props.link; // Replace with the actual URL you want to open
                         window.open(url, '_blank');
                     }}
-                    className={`py-3 ${getColorClass(props.color)} ${getColorClassTwo(props.color)} border-2 text-[20px] leading-[20px] text-white font-normal`}
+                    className={`py-3 ${getColorClass(props.color)} ${getColorClassTwo(props.color)} border-2 text-[16px] leading-[16px] text-white font-normal`}
                 >
                     {hotelStringTwo(props.type)}
                 </button>
                 {props.type !== 'hotel' && props.type !== 'journal' && (
                     <button
-                        className={`bg-none flex relative justify-center py-3 ${getColorClassTwo(props.color)} border-2 text-[20px] leading-[20px] text-black`}
+                        className={`bg-none flex relative justify-center items-center py-3 ${getColorClassTwo(props.color)} border-2 text-[16px] leading-[16px] text-black`}
                     >
-                        <svg className={`absolute left-0 pl-3 w-8 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className={`absolute left-0 pl-3 w-7 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11.5 3.25071L13.2735 8.70902L13.4643 9.29635H14.0819H19.8211L15.178 12.6698L14.6784 13.0328L14.8692 13.6201L16.6427 19.0784L11.9996 15.705L11.5 15.342L11.0004 15.705L6.35727 19.0784L8.13078 13.6201L8.32162 13.0328L7.822 12.6698L3.17888 9.29635H8.91809H9.53565L9.72649 8.70902L11.5 3.25071Z" stroke={`${getColorClassThree(props.color)}`} stroke-width="1.7"/>
                         </svg>
                         <span className="text-center">{hotelString(props.type)}</span>
@@ -118,12 +118,12 @@ function Product(props: ProductProps) {
                 )}
                 {(props.type === 'hotel' || props.type === 'journal') && (
                     <button
-                        className={`bg-none flex relative justify-center py-3 ${getColorClassTwo(props.color)} border-2 text-[20px] leading-[20px] text-black`}
+                        className={`bg-none flex relative justify-center items-center py-3 ${getColorClassTwo(props.color)} border-2 text-[16px] leading-[16px] text-black`}
                     >
-                        <svg className={`absolute left-0 pl-3 w-8 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className={`absolute left-0 pl-3 w-7 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11.5 3.25071L13.2735 8.70902L13.4643 9.29635H14.0819H19.8211L15.178 12.6698L14.6784 13.0328L14.8692 13.6201L16.6427 19.0784L11.9996 15.705L11.5 15.342L11.0004 15.705L6.35727 19.0784L8.13078 13.6201L8.32162 13.0328L7.822 12.6698L3.17888 9.29635H8.91809H9.53565L9.72649 8.70902L11.5 3.25071Z" stroke={`${getColorClassThree(props.color)}`} stroke-width="1.7"/>
                         </svg>
-                        <span className="text-center">{props.type === 'journal' ? 'Add to Inspiration List' : 'Add to Wish List'}</span>
+                        <span className="text-center ">{props.type === 'journal' ? 'Add to Inspiration List' : 'Add to Wish List'}</span>
                     </button>
                 )}
             </div>

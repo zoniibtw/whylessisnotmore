@@ -7,7 +7,7 @@ interface SectionProps {
 const Section: FC<SectionProps> = ({ children }) => {
   return (
     <section
-      className={`w-full py-[5%] md:px-0 md:w-70 mx-auto max-w-[1750px]`}
+      className={`w-full px-4 md:px-0 md:w-11/12 xl:w-10/12 mx-auto max-w-custom`}
     >
       {children}
     </section>

@@ -91,7 +91,7 @@ function WishList() {
         image={Image}
         color="green"
         flow="default" />
-      <div className={`transition-colors ${getBackgroundClass()}`}>
+      <div className={`py-[5%] transition-colors ${getBackgroundClass()}`}>
         <Section>
           <div className="flex w-full justify-center gap-4 pb-[2.5%]">
             {/* Slide buttons */}

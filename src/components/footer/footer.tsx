@@ -71,7 +71,7 @@ const MailChimp: React.FC = () => {
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
       <input
-        className="border-2 border-black py-2 px-5 text-[30px] leading-[30px] font-normal font-gothic text-black"
+        className="border-2 border-black py-2 px-5 text-[20px] leading-[20px] font-normal font-gothic text-black"
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -79,37 +79,37 @@ const MailChimp: React.FC = () => {
         required
       />
       <input
-        className="border-2 border-black py-2 px-5 text-[30px] leading-[30px] font-normal font-gothic text-black"
+        className="border-2 border-black py-2 px-5 text-[20px] leading-[20px] font-normal font-gothic text-black"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Your email"
         required
       />
-      <button className="py-2 px-5 text-[30px] leading-[30px] font-gothic text-white bg-black border-2 border-black" type="submit">Subscribe</button>
+      <button className="py-2 px-5 text-[20px] leading-[20px] font-gothic text-white bg-black border-2 border-black" type="submit">Subscribe</button>
     </form>
   );
 };
 
 function Footer() {
     return ( 
-        <footer id="contact" className="w-full flex justify-between py-[5%] md:px-0 md:w-70 mx-auto max-w-[1750px]">
+        <footer id="contact" className="w-full flex justify-between py-[5%] px-4 md:px-0 md:w-11/12 xl:w-10/12 mx-auto max-w-custom">
             <div className="flex flex-col gap-10">
-                <h1 className="text-[28px] leading-[28px] font-medium">Contact</h1>
+                <h1 className="text-[24px] leading-[24px] font-medium">Contact</h1>
                 <div className="">
-                    <p className="text-[28px] font-normal leading-[28px] text-black">Inquires or questions:</p>
-                    <a className="text-[28px] font-normal leading-[28px] text-black" href="mailto:falkenberg.louisa@gmail.com">falkenberg.louisa@gmail.com</a>
+                    <p className="text-[24px] font-normal leading-[24px] text-black">Inquires or questions:</p>
+                    <a className="text-[24px] font-normal leading-[24px] text-black" href="mailto:falkenberg.louisa@gmail.com">falkenberg.louisa@gmail.com</a>
                 </div>
 
                 <div className="">
-                    <p className="text-[28px] font-normal leading-[28px] text-black">Instagram:</p>
-                    <a className="text-[28px] font-normal leading-[28px] text-black" href="https://www.instagram.com/whylessisnotmore/" target="_blank">@whylessisnotmore</a>
+                    <p className="text-[24px] font-normal leading-[24px] text-black">Instagram:</p>
+                    <a className="text-[24px] font-normal leading-[24px] text-black" href="https://www.instagram.com/whylessisnotmore/" target="_blank">@whylessisnotmore</a>
                 </div>
             </div>
 
             <div className="flex flex-col gap-10">
-                <h1 className="text-[28px] font-medium leading-[28px] text-black">Subscribe to the latest news and offers</h1>
-                <p className="text-[28px] font-normal leading-[28px] text-black">Lorem ipsum dolor sit amet, consectetur adipiscing<br /> elit, sed do eiusmod tempor incididunt ut labore et</p>
+                <h1 className="text-[24px] font-medium leading-[24px] text-black">Subscribe to the latest news and offers</h1>
+                <p className="text-[24px] font-normal leading-[24px] text-black">Lorem ipsum dolor sit amet, consectetur adipiscing<br /> elit, sed do eiusmod tempor incididunt ut labore et</p>
                 <div className="">
                     <MailChimp />
                 </div>

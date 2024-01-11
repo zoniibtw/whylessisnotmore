@@ -29,13 +29,13 @@ const CategoryItems: FC<CategoryProps> = ({ children, url, category, title, colo
     return ( 
         <div className={`${getColorClass( color )}`}>
             <Section>
-                <div className="w-full flex">
+                <div className="w-full flex py-[5%]">
                     <div className="w-[30%] flex justify-start items-center pb-[14%]">
-                        <div className="flex flex-col text-center gap-3">
-                            <h3 className="text-[20px] leading-[20px] text-black">{category}</h3>
-                            <h2 className="text-[28px] leading-[28px] text-black">{title}</h2>
+                        <div className="flex flex-col text-center gap-2">
+                            <h3 className="text-[16px] leading-[16px] text-black">{category}</h3>
+                            <h2 className="text-[24px] leading-[24px] text-black">{title}</h2>
                             <Link className="underline underline-offset-1" to={url}>
-                                <span className="text-[20px] leading-[20px] text-blacks">View all</span>
+                                <span className="text-[16px] leading-[16px] text-blacks">View all</span>
                             </Link>
                         </div>
                     </div>

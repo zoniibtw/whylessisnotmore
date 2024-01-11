@@ -9,10 +9,10 @@ function Header() {
 
     return (
         <header className="w-full flex justify-center items-center top-0 bg-white h-[8vh] px-10">
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between items-center">
                 <div className="">
                     <Link to="/wishlist">
-                        <img src={Heart} alt="" />
+                        <img className="h-5 w-auto" src={Heart} alt="" />
                     </Link>
                 </div>
 
@@ -58,7 +58,7 @@ function Header() {
 
                 <div className="">
                     <a href="https://www.instagram.com/whylessisnotmore/" target="_blank">
-                        <img src={Instagram} alt="" />
+                        <img className="h-5 w-auto" src={Instagram} alt="" />
                     </a>
                 </div>
             </div>

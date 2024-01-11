@@ -27,7 +27,11 @@ module.exports = {
     fontFamily: {
       gothic: ['franklin-gothic-atf', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      maxWidth: {
+        'custom': '1750px',
+      },
+    },
   },
   plugins: [],
 }

@@ -25,7 +25,7 @@ const CategoryViewall: FC<CategoryProps> = ({ children, color = 'default' }) => 
     return ( 
         <div className={`${getColorClass( color )}`}>
             <Section>
-                <div className="w-full flex">
+                <div className="w-full flex py-[5%]">
                     <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14">
                         {children}
                     </div>
