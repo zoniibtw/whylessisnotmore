@@ -22,6 +22,7 @@ class WPApi {
   private api: AxiosInstance;
   private dataFilePath: string;
 
+  // You can find the json file under public folder
   constructor() {
     this.api = axios.create({
       baseURL: 'https://your-wordpress-site-url/wp-json/wp/v2',

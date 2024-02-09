@@ -69,31 +69,56 @@ const MailChimp: React.FC = () => {
   };
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-      <input
-        className="border-2 border-black py-2 px-5 text-[20px] leading-[20px] font-normal font-gothic text-black"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Your name"
-        required
-      />
-      <input
-        className="border-2 border-black py-2 px-5 text-[20px] leading-[20px] font-normal font-gothic text-black"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Your email"
-        required
-      />
-      <button className="py-2 px-5 text-[20px] leading-[20px] font-gothic text-white bg-black border-2 border-black" type="submit">Subscribe</button>
-    </form>
+    <>
+      <form className="flex flex-col gap-3 max-md:hidden" onSubmit={handleSubmit}>
+        <input
+          className="border-2 border-black py-2 px-5 text-[20px] leading-[20px] font-normal font-gothic text-black rounded-none"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Your name"
+          required
+        />
+        <input
+          className="border-2 border-black py-2 px-5 text-[20px] leading-[20px] font-normal font-gothic text-black rounded-none"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your email"
+          required
+        />
+        <button className="py-2 px-5 text-[20px] leading-[20px] font-gothic text-white bg-black border-2 border-black" type="submit">Subscribe</button>
+      </form>
+
+      {/* Mobile component */}
+
+      <form className="flex flex-col gap-3 md:hidden" onSubmit={handleSubmit}>
+        <input
+          className="border-2 border-black py-2 px-5 text-[16px] leading-[16px] font-normal font-gothic text-black rounded-none"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Your name"
+          required
+        />
+        <input
+          className="border-2 border-black py-2 px-5 text-[16px] leading-[16px] font-normal font-gothic text-black rounded-none"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your email"
+          required
+        />
+        <button className="py-2 px-5 text-[16px] leading-[16px] font-gothic text-white bg-black border-2 border-black" type="submit">Subscribe</button>
+      </form>
+    </>
   );
 };
 
 function Footer() {
     return ( 
-        <footer id="contact" className="w-full flex justify-between py-[5%] px-4 md:px-0 md:w-11/12 xl:w-10/12 mx-auto max-w-custom">
+      <>
+        <footer id="contact" className="w-full flex justify-between py-[5%] px-4 md:px-0 md:w-11/12 xl:w-10/12 mx-auto max-w-custom max-md:hidden">
             <div className="flex flex-col gap-10">
                 <h1 className="text-[24px] leading-[24px] font-medium">Contact</h1>
                 <div className="">
@@ -115,6 +140,32 @@ function Footer() {
                 </div>
             </div>
         </footer>
+
+        {/* Mobile component */}
+
+        <footer id="contactMobile" className="w-full flex flex-col gap-10 justify-between py-[20%] px-4 md:px-0 md:w-11/12 xl:w-10/12 mx-auto max-w-custom md:hidden">
+            <div className="flex flex-col gap-3">
+                <h1 className="text-[16px] leading-[16px] font-medium">Contact</h1>
+                <div className="">
+                    <p className="text-[16px] font-normal leading-[16px] text-black">Inquires or questions:</p>
+                    <a className="text-[16px] font-normal leading-[16px] text-black" href="mailto:falkenberg.louisa@gmail.com">falkenberg.louisa@gmail.com</a>
+                </div>
+
+                <div className="">
+                    <p className="text-[16px] font-normal leading-[16px] text-black">Instagram:</p>
+                    <a className="text-[16px] font-normal leading-[16px] text-black" href="https://www.instagram.com/whylessisnotmore/" target="_blank">@whylessisnotmore</a>
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+                <h1 className="text-[16px] font-medium leading-[16px] text-black">Subscribe to the latest news and offers</h1>
+                <p className="text-[16px] font-normal leading-[16px] text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                <div className="mt-7">
+                    <MailChimp />
+                </div>
+            </div>
+        </footer>
+      </>
      );
 }
 

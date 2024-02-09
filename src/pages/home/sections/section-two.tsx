@@ -20,6 +20,7 @@ function SectionTwo() {
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="purple" link="s"/>
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="purple" link="s"/>
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="purple" link="s"/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="purple" link="s" hidden="hidden"/>
             </CategoryItems>
         </div>
      );

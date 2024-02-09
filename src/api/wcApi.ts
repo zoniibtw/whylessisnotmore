@@ -23,6 +23,7 @@ export interface WooCommerceData {
 }
 
 const wcApi = {
+  // You can find the json file under public folder
   // Replace 'YOUR_API_BASE_URL' with the actual base URL of your WooCommerce API
   baseUrl: 'YOUR_API_BASE_URL',
 

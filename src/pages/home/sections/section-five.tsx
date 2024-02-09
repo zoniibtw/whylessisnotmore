@@ -22,6 +22,7 @@ function SectionFive() {
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s"/>
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s"/>
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s"/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="pink" type="journal" link="s" hidden="hidden"/>
             </CategoryItems>
         </div>
      );

@@ -9,10 +9,10 @@ interface JournalProps {
 
 const JournalViewall: FC<JournalProps> = ({ children }) => {
     return ( 
-        <div className="bg-light-pink">
+        <div className="bg-light-pink py-[5%]">
             <Section>
                 <div className="w-full flex">
-                    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14">
+                    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14 max-md:grid-cols-2">
                         {children}
                         {[...Array(12)].map((_, index) => (
                             <Product

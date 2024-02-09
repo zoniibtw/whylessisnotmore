@@ -9,19 +9,19 @@ function SectionOne() {
         backgroundImage: `linear-gradient(to bottom, rgba(34, 34, 34, 0.3), rgba(34, 34, 34, 0.3)), url(${Image})`,
       }}
     >
-      <div className="h-[92vh] w-full py-[5%] px-4 md:px-0 md:w-11/12 xl:w-10/12 mx-auto max-w-custom flex items-center">
+      <div className="h-screen w-full py-[5%] px-4 md:px-0 md:w-11/12 xl:w-10/12 mx-auto max-w-custom flex items-center max-md:items-start max-md:pt-[20%]">
         <div className="flex flex-col gap-10">
           <div className="flex justify-start">
-            <h1 className="text-[58px] leading-[60px] font-light text-white uppercase">
+            <h1 className="text-[75px] leading-[75px] font-light text-white uppercase max-md:text-[45px] max-md:leading-[45px]">
               WELCOME TO<br />
               OUR WORLD<br />
               WHERE MORE<br />
               IS MORE
             </h1>
           </div>
-          <div className="w-full h-full flex items-end">
+          <div className="w-full h-full flex items-end max-md:flex-col max-md:gap-8">
             <div className="">
-              <p className="text-[20px] leading-[20px] text-white font-light w-[60%]">
+              <p className="text-[20px] leading-[20px] text-white font-light w-[60%] max-md:w-full">
                 We have scoured the market for you and offer a highly curated 
                 selection of our favourite items. These precious pieces come 
                 from both small, independent businesses as well as established, 
@@ -30,7 +30,7 @@ function SectionOne() {
                 hotels and spaces.
               </p>
             </div>
-            <div className="flex justify-end items-end w-full">
+            <div className="flex justify-end items-end w-full max-md:justify-start">
               <button
                 className="group flex items-end gap-10"
                 onClick={() => scrollTo('interiors')}
