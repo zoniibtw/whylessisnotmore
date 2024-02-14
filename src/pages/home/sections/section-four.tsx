@@ -19,7 +19,7 @@ function SectionFour() {
             >
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s"/>
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s"/>
-                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s"/>
+                <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" hiddenlg="hidden"/>
                 <Product name="Ellos" desc="Vägghylla Wave" price="€80" color="gold" type="hotel" link="s" hidden="hidden"/>
             </CategoryItems>
         </div>

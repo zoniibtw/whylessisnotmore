@@ -94,7 +94,7 @@ const MailChimp: React.FC = () => {
 
       <form className="flex flex-col gap-3 md:hidden" onSubmit={handleSubmit}>
         <input
-          className="border-2 border-black py-2 px-5 text-[16px] leading-[16px] font-normal font-gothic text-black rounded-none"
+          className="border border-black py-2 px-5 text-[16px] leading-[16px] font-normal font-gothic text-black rounded-none"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -102,7 +102,7 @@ const MailChimp: React.FC = () => {
           required
         />
         <input
-          className="border-2 border-black py-2 px-5 text-[16px] leading-[16px] font-normal font-gothic text-black rounded-none"
+          className="border border-black py-2 px-5 text-[16px] leading-[16px] font-normal font-gothic text-black rounded-none"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

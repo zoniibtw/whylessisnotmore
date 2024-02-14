@@ -9,7 +9,6 @@ import useScrollToTop from '../../utils/useScrollToTop';
 
 interface CategoryProps {
   selectedCategory: string | null;
-  // Add type and color props here
   type?: 'hotel' | 'journal' | 'standard';
   color?: 'purple' | 'blue' | 'gold' | 'pink';
 }
@@ -20,7 +19,6 @@ interface ProductProps {
   description: string;
   price: number;
   link: string;
-  // Add type and color props here
   type?: 'hotel' | 'journal' | 'standard';
   color?: 'purple' | 'blue' | 'gold' | 'pink';
 }
@@ -94,6 +92,7 @@ function Category({ selectedCategory, type, color }: CategoryProps) {
           image={categoryImage}
           color={categoryColor}
           flow="default"
+          mt="true"
         />
       )}
       <CategoryViewall color={categoryColor || 'purple'}>
@@ -104,8 +103,8 @@ function Category({ selectedCategory, type, color }: CategoryProps) {
             desc={product.description}
             price={product.price}
             link={product.link}
-            type={type} // Pass the type prop here
-            color={color} // Pass the color prop here
+            type={type}
+            color={color}
           />
         ))}
         {[...Array(12)].map((_, index) => (
@@ -115,8 +114,8 @@ function Category({ selectedCategory, type, color }: CategoryProps) {
             desc="Vägghylla Wave"
             price="€80"
             link="s"
-            type={type} // Pass the type prop here
-            color={color} // Pass the color prop here
+            type={type}
+            color={color}
           />
         ))}
       </CategoryViewall>

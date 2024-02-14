@@ -29,7 +29,7 @@ function WishList() {
 
   const getButtonColor = (index: number) => {
     const activeColor = getActiveButtonColor();
-    return `border-2 w-4 h-4 rounded-full ${index === activeSlide ? activeColor : 'border'}`;
+    return `border w-4 h-4 rounded-full ${index === activeSlide ? activeColor : 'border'}`;
   };
 
   const getActiveButtonColor = () => {
