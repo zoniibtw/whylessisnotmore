@@ -7,5 +7,17 @@ import JournalViewall from "./journal/journal-viewall";
 import Section from "./section/section";
 import CategoryItems from "./category/category-items";
 import Product from "./product/product";
+import CookiePopup from "./cookie/cookie";
 
-export { Footer, Header, Newsletter, CategoryBanner, Section, CategoryItems, CategoryViewall, JournalViewall, Product }
+export {
+  Footer,
+  Header,
+  CookiePopup,
+  Newsletter,
+  CategoryBanner,
+  Section,
+  CategoryItems,
+  CategoryViewall,
+  JournalViewall,
+  Product,
+};

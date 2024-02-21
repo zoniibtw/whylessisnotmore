@@ -1,13 +1,64 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 * {
-    padding: 0;
-    margin: 0;
-    font-family: franklin-gothic-atf, 'Libre Franklin', sans-serif;
+  padding: 0;
+  margin: 0;
+  font-family: franklin-gothic-atf, "Libre Franklin", sans-serif;
 }
 
 body {
-    background-color: #fff;
+  background-color: #fff;
+}
+
+.fav-btn:hover svg path {
+  stroke: #fff;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.slide-container {
+  display: flex;
+  width: 300%; /* Set the width to accommodate multiple slides */
+  transition: transform 0.5s ease-in-out; /* Apply transition to transform property */
+}
+
+.slide {
+  flex: 1 0 100%; /* Ensure each slide takes up the full width */
+}
+
+.newsletter-active {
+  overflow: hidden;
+}
+
+.star-btn {
+  transition: all;
+  transition-duration: 300;
+  transition-property: fill;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.star-btn svg path {
+  fill: #000;
+  transition: all;
+  transition-duration: 300;
+  transition-property: fill;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.star-btn:hover svg path {
+  fill: #fff;
+  transition: all;
+  transition-duration: 300;
+  transition-property: fill;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.star-icon {
+  stroke-width: -10;
 }

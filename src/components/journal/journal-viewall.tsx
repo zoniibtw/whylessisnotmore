@@ -1,20 +1,20 @@
-import React, { ReactNode, FC } from 'react';
+import React, { ReactNode, FC } from "react";
 import Section from "../section/section";
-import Product from '../product/product';
+import Product from "../product/product";
 
 interface JournalProps {
-    children: ReactNode;
-    color?: 'purple' | 'blue' | 'pink' | 'gold' | 'default' ;
+  children: ReactNode;
+  color?: "purple" | "blue" | "pink" | "gold" | "default";
 }
 
 const JournalViewall: FC<JournalProps> = ({ children }) => {
-    return ( 
-        <div className="bg-light-pink py-[5%]">
-            <Section>
-                <div className="w-full flex">
-                    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14 max-md:grid-cols-2">
-                        {children}
-                        {[...Array(12)].map((_, index) => (
+  return (
+    <div className="bg-light-pink py-[5%]">
+      <Section>
+        <div className="w-full flex">
+          <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14 max-md:grid-cols-2">
+            {children}
+            {/* {[...Array(12)].map((_, index) => (
                             <Product
                             key={index}
                             name="Ellos"
@@ -24,12 +24,12 @@ const JournalViewall: FC<JournalProps> = ({ children }) => {
                             type="journal" // Pass the type prop here
                             color="pink" // Pass the color prop here
                             />
-                        ))}
-                    </div>
-                </div>
-            </Section>
+                        ))} */}
+          </div>
         </div>
-     );
-}
+      </Section>
+    </div>
+  );
+};
 
 export default JournalViewall;

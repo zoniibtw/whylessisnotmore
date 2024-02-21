@@ -1,17 +1,30 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useEffect, useState } from "react";
 import { CategoryBanner, Section, Product } from "../../components";
 import Image from "../../assets/wepb/categories/wishlist.webp";
-import useScrollToTop from '../../utils/useScrollToTop';
+import useScrollToTop from "../../utils/useScrollToTop";
+import { CSSTransition } from "react-transition-group";
 
 interface SlideProps {
-  children: ReactNode;
+  children: React.ReactNode;
   title: string;
   content: string;
 }
 
+interface ProductData {
+  id: number;
+  category: string;
+  date: string;
+  title: string;
+  product_description: string;
+  price: string;
+  skimlink_url: string;
+  product_image: string;
+  gallery_image: string;
+}
+
 const Slide: React.FC<SlideProps> = ({ children }) => {
   return (
-    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14">
+    <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14 max-lg:grid-cols-3 max-md:grid-cols-2">
       {children}
     </div>
   );
@@ -20,66 +33,102 @@ const Slide: React.FC<SlideProps> = ({ children }) => {
 function WishList() {
   useScrollToTop();
   const slidesData = [
-    { title: 'Hotels', content: 'Content for Hotels slide.' },
-    { title: 'Style', content: 'Content for Style slide.' },
-    { title: 'Interiors', content: 'Content for Interiors slide.' },
+    { title: "Hotels", content: "Content for Hotels slide.", category: "hotels" },
+    { title: "Style", content: "Content for Style slide.", category: "style" },
+    { title: "Interiors", content: "Content for Interiors slide.", category: "interiors" },
   ];
 
   const [activeSlide, setActiveSlide] = useState(0);
+  const [wishlistData, setWishlistData] = useState<ProductData[]>([]);
+
+  useEffect(() => {
+    // Retrieve wishlist data from local storage
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    setWishlistData(storedWishlist);
+  }, []);
+
+  const filterWishlistByCategory = (category: string) => {
+    return wishlistData.filter((product) => product.category === category);
+  };
+
+  const renderProductsForSlide = (category: string) => {
+    const products = filterWishlistByCategory(category);
+    return products.map((product) => (
+      <Product
+        key={product.id}
+        data={product}
+        isWishlisted={true} // Assuming all products in the wishlist are wishlisted
+        onToggleWishlist={() => {}}
+      />
+    ));
+  };
 
   const getButtonColor = (index: number) => {
     const activeColor = getActiveButtonColor();
-    return `border w-4 h-4 rounded-full ${index === activeSlide ? activeColor : 'border'}`;
+    return `border w-3 h-3 rounded-full ${index === activeSlide ? activeColor : "border"}`;
+  };
+
+  const getBorderColor = (index: number) => {
+    switch (activeSlide) {
+      case 0:
+        return "border-strong-gold";
+      case 1:
+        return "border-strong-blue";
+      case 2:
+        return "border-strong-pink";
+      default:
+        return "";
+    }
   };
 
   const getActiveButtonColor = () => {
     switch (activeSlide) {
       case 0:
-        return 'border-strong-gold bg-strong-gold';
+        return "bg-strong-gold";
       case 1:
-        return 'border-strong-blue bg-strong-blue';
+        return "bg-strong-blue";
       case 2:
-        return 'border-strong-pink bg-strong-pink';
+        return "bg-strong-pink";
       default:
-        return 'border';
+        return "border";
     }
   };
 
   const getBackgroundClass = () => {
     switch (activeSlide) {
       case 0:
-        return 'bg-light-gold';
+        return "bg-light-gold";
       case 1:
-        return 'bg-light-blue';
+        return "bg-light-blue";
       case 2:
-        return 'bg-light-pink';
+        return "bg-light-pink";
       default:
-        return '';
+        return "";
     }
   };
 
   const getType = () => {
     switch (activeSlide) {
       case 0:
-        return 'hotel';
+        return "hotel";
       case 1:
       case 2:
-        return 'standard';
+        return "standard";
       default:
-        return 'standard'; // Set a default value
+        return "standard"; // Set a default value
     }
   };
 
   const getColor = () => {
     switch (activeSlide) {
       case 0:
-        return 'gold';
+        return "gold";
       case 1:
-        return 'blue';
+        return "blue";
       case 2:
-        return 'pink';
+        return "pink";
       default:
-        return 'purple'; // Set a default value
+        return "purple"; // Set a default value
     }
   };
 
@@ -90,42 +139,38 @@ function WishList() {
         text="Our platform offers a convenient way to collect, curate, and save all your cherished items in various categories. Whether it's interiors, style, hotels, or any other treasure you stumble upon."
         image={Image}
         color="green"
-        flow="default" />
-      <div className={`py-[5%] transition-colors ${getBackgroundClass()}`}>
+        flow="default"
+      />
+      <div
+        className={`pb-[5%] pt-[2.5%] transition-colors ${getBackgroundClass()} max-md:pt-8 max-md:pb-0`}
+      >
         <Section>
-          <div className="flex w-full justify-center gap-4 pb-[2.5%]">
+          <div className="flex w-full justify-center gap-4 pb-[2.5%] max-md:pb-8 max-md:pt-0">
             {/* Slide buttons */}
             {slidesData.map((slide, index) => (
               <button
+                title={slide.title}
                 key={index}
-                className={getButtonColor(index)}
+                className={`${getButtonColor(index)} ${getBorderColor(index)}`}
                 onClick={() => setActiveSlide(index)}
-              >
-              </button>
+              ></button>
             ))}
           </div>
-          <div className="flex w-full">
-            {/* Different slides */}
-            {slidesData.map((slide, index) => (
-              <div
-                key={index}
-                className={`w-full ${index === activeSlide ? 'block' : 'hidden'}`}
-              >
-                <Slide title={slide.title} content={slide.content}>
-                  {[...Array(12)].map((_, index) => (
-                    <Product
-                      key={index}
-                      name="Ellos"
-                      desc="Vägghylla Wave"
-                      price="€80"
-                      link="s"
-                      type={getType()} // Call the function to get the actual value
-                      color={getColor()} // Call the function to get the actual value
-                    />
-                  ))}
-                </Slide>
-              </div>
-            ))}
+          <div className="flex w-full overflow-hidden">
+            {/* Slide container with sliding effect */}
+            <div
+              className="slide-container"
+              style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+            >
+              {slidesData.map((slide, index) => (
+                <div key={index} className="slide">
+                  <Slide title={slide.title} content={slide.content}>
+                    {/* Render products for the current slide's category */}
+                    {renderProductsForSlide(slide.category)}
+                  </Slide>
+                </div>
+              ))}
+            </div>
           </div>
         </Section>
       </div>

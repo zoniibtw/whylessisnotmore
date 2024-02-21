@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "./static/css/main.09298fa3.css",
+    "main.js": "./static/js/main.e75404c3.js",
+    "static/js/787.9abfbdc0.chunk.js": "./static/js/787.9abfbdc0.chunk.js",
+    "static/media/journal.webp": "./static/media/journal.6fc033ca901b4acca2b1.webp",
+    "static/media/style.webp": "./static/media/style.39891331e7820720076b.webp",
+    "static/media/product-test2.jpg": "./static/media/product-test2.2605cb92139326b9878a.jpg",
+    "static/media/product-test.jpg": "./static/media/product-test.ded717cfac1f88e3ef31.jpg",
+    "static/media/wishlist.webp": "./static/media/wishlist.9538221634399d31670b.webp",
+    "static/media/hero-bg.webp": "./static/media/hero-bg.a92ae244951b31249b7d.webp",
+    "static/media/interior.webp": "./static/media/interior.7423de5fc3b9da5fc30d.webp",
+    "static/media/hotel.webp": "./static/media/hotel.95401558b260606ddc96.webp",
+    "static/media/story.webp": "./static/media/story.a3bf4b9ce4c39cb7e27e.webp",
+    "index.html": "./index.html",
+    "main.09298fa3.css.map": "./static/css/main.09298fa3.css.map",
+    "main.e75404c3.js.map": "./static/js/main.e75404c3.js.map",
+    "787.9abfbdc0.chunk.js.map": "./static/js/787.9abfbdc0.chunk.js.map"
+  },
+  "entrypoints": ["static/css/main.09298fa3.css", "static/js/main.e75404c3.js"]
+}

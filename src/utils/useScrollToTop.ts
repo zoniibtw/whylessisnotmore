@@ -1,5 +1,5 @@
 // useScrollToTop.ts
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const useScrollToTop = () => {
   useEffect(() => {
@@ -9,10 +9,10 @@ const useScrollToTop = () => {
       window.scrollTo(0, 0);
     };
 
-    window.addEventListener('popstate', onRouteChange);
+    window.addEventListener("popstate", onRouteChange);
 
     return () => {
-      window.removeEventListener('popstate', onRouteChange);
+      window.removeEventListener("popstate", onRouteChange);
     };
   }, []);
 };

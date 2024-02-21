@@ -1,121 +1,121 @@
 // src/pages/category/category.tsx
-import React, { useState, useEffect } from 'react';
-import wcApi, { WooCommerceProduct } from '../../api/wcApi';
-import { CategoryBanner, CategoryViewall, Product } from '../../components';
-import InteriorsImage from '../../assets/wepb/categories/interior.webp';
-import StyleImage from '../../assets/wepb/categories/style.webp';
-import HotelImage from '../../assets/wepb/categories/hotel.webp';
-import useScrollToTop from '../../utils/useScrollToTop';
+import React, { useState, useEffect } from "react";
+import useScrollToTop from "../../utils/useScrollToTop";
+import { CategoryBanner, CategoryViewall, Product } from "../../components";
+import InteriorsImage from "../../assets/wepb/categories/interior.webp";
+import StyleImage from "../../assets/wepb/categories/style.webp";
+import HotelImage from "../../assets/wepb/categories/hotel.webp";
 
 interface CategoryProps {
   selectedCategory: string | null;
-  type?: 'hotel' | 'journal' | 'standard';
-  color?: 'purple' | 'blue' | 'gold' | 'pink';
+  color?: "purple" | "blue" | "gold" | "pink";
 }
 
-interface ProductProps {
+interface ProductData {
   id: number;
-  name: string;
-  description: string;
-  price: number;
-  link: string;
-  type?: 'hotel' | 'journal' | 'standard';
-  color?: 'purple' | 'blue' | 'gold' | 'pink';
+  category: string;
+  date: string;
+  title: string;
+  product_description: string;
+  price: string;
+  skimlink_url: string;
+  product_image: string;
+  gallery_image: string;
 }
 
-function Category({ selectedCategory, type, color }: CategoryProps) {
+function Category({ selectedCategory, color }: CategoryProps) {
   useScrollToTop();
-  const [categories, setCategories] = useState<string[]>([]);
-  const [products, setProducts] = useState<WooCommerceProduct[]>([]);
   const [categoryImage, setCategoryImage] = useState<string | null>(null);
-  const [categoryColor, setCategoryColor] = useState<'purple' | 'blue' | 'gold' | 'pink' | 'default' | null>(
-    null
-  );
-  const [categoryTitle, setCategoryTitle] = useState<string>('');
-  const [categoryText, setCategoryText] = useState<string>('');
+  const [categoryTitle, setCategoryTitle] = useState<string>("");
+  const [categoryText, setCategoryText] = useState<string>("");
+  const [products, setProducts] = useState<ProductData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await wcApi.getAllData(selectedCategory);
-        setCategories(data.categories.map((category: any) => category.name));
-        setProducts(data.products);
+        const response = await fetch("/products.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data: ProductData[] = await response.json();
+        setProducts(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [selectedCategory]);
+  }, []);
 
   useEffect(() => {
     switch (selectedCategory) {
-      case 'interiors':
+      case "interiors":
         setCategoryImage(InteriorsImage);
-        setCategoryColor('purple');
-        setCategoryTitle('Interiors');
+        setCategoryTitle("Interiors");
         setCategoryText(
-          'Your home is a canvas of your personality. Whether you lean towards elegant minimalism or embrace vibrant chic, weve scoured the market to unveil a meticulously curated collection of our absolute favorite pieces.'
+          "Your home is a canvas of your personality. Whether you lean towards elegant minimalism or embrace vibrant chic, we've scoured the market to unveil a meticulously curated collection of our absolute favorite pieces.",
         );
         break;
-      case 'style':
+      case "style":
         setCategoryImage(StyleImage);
-        setCategoryColor('blue');
-        setCategoryTitle('Style');
+        setCategoryTitle("Style");
         setCategoryText(
-          'Discover the epitome of elegance and sophistication in our thoughtfully assembled collection of timeless classics and cutting-edge fashion pieces. Our very own expression of lasting allure.'
+          "Discover the epitome of elegance and sophistication in our thoughtfully assembled collection of timeless classics and cutting-edge fashion pieces. Our very own expression of lasting allure.",
         );
         break;
-      case 'hotels':
+      case "hotels":
         setCategoryImage(HotelImage);
-        setCategoryColor('gold');
-        setCategoryTitle('Hotels');
+        setCategoryTitle("Hotels");
         setCategoryText(
-          'Passion for travel runs deep within us, and we invite you to join in the adventure. Explore a world of charm with our handpicked collection of unique hotels across the globe. Each one promises an unforgettable stay and a touch of enchantment.'
+          "Passion for travel runs deep within us, and we invite you to join in the adventure. Explore a world of charm with our handpicked collection of unique hotels across the globe. Each one promises an unforgettable stay and a touch of enchantment.",
         );
         break;
       default:
         setCategoryImage(null);
-        setCategoryColor(null);
-        setCategoryTitle('');
-        setCategoryText('');
+        setCategoryTitle("");
+        setCategoryText("");
         break;
     }
   }, [selectedCategory]);
 
+  const filteredProducts = selectedCategory
+    ? products.filter(
+        (product) => product.category.toLowerCase() === selectedCategory,
+      )
+    : [];
+
+  // Define functions to handle wishlist functionality
+  const [wishlist, setWishlist] = useState<number[]>([]);
+
+  const toggleWishlist = (productId: number) => {
+    if (wishlist.includes(productId)) {
+      setWishlist(wishlist.filter((id) => id !== productId));
+    } else {
+      setWishlist([...wishlist, productId]);
+    }
+  };
+
   return (
     <>
-      {categoryImage && categoryColor && (
+      {categoryImage && (
         <CategoryBanner
           title={categoryTitle}
           text={categoryText}
           image={categoryImage}
-          color={categoryColor}
+          color={color || "purple"}
           flow="default"
           mt="true"
         />
       )}
-      <CategoryViewall color={categoryColor || 'purple'}>
-        {products.map((product) => (
+      <CategoryViewall color={color || "purple"}>
+        {filteredProducts.map((product) => (
           <Product
             key={product.id}
-            name={product.name}
-            desc={product.description}
-            price={product.price}
-            link={product.link}
-            type={type}
-            color={color}
-          />
-        ))}
-        {[...Array(12)].map((_, index) => (
-          <Product
-            key={index}
-            name="Ellos"
-            desc="Vägghylla Wave"
-            price="€80"
-            link="s"
-            type={type}
-            color={color}
+            data={product}
+            // Pass isWishlisted prop based on whether the product ID is in the wishlist
+            isWishlisted={wishlist.includes(product.id)}
+            // Pass onToggleWishlist function to handle toggling wishlist status
+            onToggleWishlist={() => toggleWishlist(product.id)}
           />
         ))}
       </CategoryViewall>

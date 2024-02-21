@@ -1,4 +1,4 @@
-import React, { ReactNode, FC } from 'react';
+import React, { ReactNode, FC } from "react";
 
 interface SectionProps {
   children: ReactNode;

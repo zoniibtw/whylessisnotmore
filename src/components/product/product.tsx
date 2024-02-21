@@ -1,212 +1,115 @@
-import Image from "../../assets/product-test.jpg";
+import React, { useState, useEffect } from "react";
+import { MdStarOutline } from "react-icons/md";
 
-interface ProductProps {
-    name: string;
-    desc: string;
-    price: string;
-    link: string;
-    hidden?: 'hidden' | 'hidden';
-    hiddenlg?: 'hidden' ;
-    type?: 'hotel' | 'journal' | 'standard';
-    color?: 'purple' | 'blue' | 'pink' | 'gold';
+export interface ProductData {
+  id: number;
+  title: string;
+  product_description: string;
+  price: string;
+  skimlink_url: string;
+  product_image: string;
+  gallery_image: string;
+  category: string;
 }
 
-function Product(props: ProductProps) {
+interface ProductProps {
+  data: ProductData;
+  isWishlisted: boolean;
+  onToggleWishlist: (productId: number) => void;
+}
 
-    const hiddenObject = (hidden?: string) => {
-        switch (hidden) {
-            case 'hidden':
-                return 'hidden';
-            default:
-                return 'null';
-        }
-    };
+interface Colors {
+  [key: string]: {
+    bg: string;
+    border: string;
+  };
+}
 
-    const hiddenObjectLg = (hiddenlg?: string) => {
-        switch (hiddenlg) {
-            case 'hidden':
-                return 'max-lg:hidden';
-            default:
-                return 'null';
-        }
+function Product({ data, isWishlisted, onToggleWishlist }: ProductProps) {
+  const [wishlisted, setWishlisted] = useState(isWishlisted);
+
+  useEffect(() => {
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    setWishlisted(storedWishlist.some((item: ProductData) => item.id === data.id));
+  }, []);
+
+  const handleToggleWishlist = () => {
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+
+    const isProductInWishlist = storedWishlist.some((item: ProductData) => item.id === data.id);
+
+    if (isProductInWishlist) {
+      const updatedWishlist = storedWishlist.filter((item: ProductData) => item.id !== data.id);
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      setWishlisted(false);
+    } else {
+      const updatedWishlist = [...storedWishlist, { ...data, isWishlisted: true }];
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      setWishlisted(true);
     }
+  };
 
-    const getColorClass = (color?: string) => {
-        switch (color) {
-            case 'purple':
-                return 'bg-strong-purple';
-            case 'blue':
-                return 'bg-strong-blue';
-            case 'pink':
-                return 'bg-strong-pink';
-            case 'gold':
-                return 'bg-strong-gold';
-            default:
-                return 'bg-white';
-        }
+  const truncateDescription = (description: string) =>
+    description.length > 30 ? description.substring(0, 30) + "..." : description;
+
+  const getCategoryConfig = (category: string) => {
+    const colors: Colors = {
+      interiors: { bg: "bg-strong-purple", border: "border-strong-purple" },
+      style: { bg: "bg-strong-blue", border: "border-strong-blue" },
+      hotels: { bg: "bg-strong-gold", border: "border-strong-gold" },
+      default: { bg: "bg-white", border: "white" },
     };
 
-    const getColorClassTwo = (color?: string) => {
-        switch (color) {
-            case 'purple':
-                return 'border-strong-purple';
-            case 'blue':
-                return 'border-strong-blue';
-            case 'pink':
-                return 'border-strong-pink';
-            case 'gold':
-                return 'border-strong-gold';
-            default:
-                return 'white';
-        }
+    const categoryLowerCase = category.toLowerCase();
+    const colorClass = colors[categoryLowerCase]?.bg || colors.default.bg;
+    const borderClass = colors[categoryLowerCase]?.border || colors.default.border;
+    const hoverClass = `hover:${colorClass} hover:bg-opacity-70 hover:text-[#fff]`;
+    const btnColor = `bg-opacity-0 ${borderClass} ${colorClass}`;
+    const btnBuy = `bg-opacity-100 ${borderClass} ${colorClass} hover:bg-opacity-70`;
+
+    return {
+      colorClassTwo: `${borderClass} ${hoverClass} duration-300 transform-all ease-in-out`,
+      btnColor,
+      btnBuy,
+      goToProductBg: colorClass,
     };
+  };
 
-    const getColorClassThree = (color?: string) => {
-        switch (color) {
-            case 'purple':
-                return '#AF979E';
-            case 'blue':
-                return '#2C6481';
-            case 'pink':
-                return '#D0948C';
-            case 'gold':
-                return '#AFA16E';
-            default:
-                return 'white';
-        }
-    };
+  const {
+    colorClassTwo,
+    btnColor,
+    btnBuy,
+    goToProductBg,
+  } = getCategoryConfig(data.category);
 
-    const hotelString = (type?: string) => {
-        switch (type) {
-            case 'hotel':
-                return 'Add to Wish List';
-            case 'journal':
-                return 'Add to Inspiration List';
-            default:
-                return 'Add to Wish List';
-        }
-    };
-
-    const hotelStringTwo = (type?: string) => {
-        switch (type) {
-            case 'hotel':
-                return 'Read More';
-            case 'journal':
-                return 'Read More';
-            default:
-                return 'Go to product';
-        }
-    };
-
-    return (
-        <>
-            {/* Desktop component */}
-
-            <div className={`flex flex-col col-span-1 row-span-1 gap-5 max-md:hidden ${hiddenObject(props.hidden)} ${hiddenObjectLg(props.hiddenlg)}`}>
-                <div className={`border-2 ${getColorClassTwo(props.color)}`}>
-                    <div
-                        className={`h-[14rem] w-full bg-no-repeat bg-cover bg-center`}
-                        style={{
-                            backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${Image})`,
-                        }}
-                    ></div>
-                </div>
-
-                <div className="flex flex-col items-center gap-2">
-                    <h1 className="text-[20px] leading-[22px] text-black">{props.name}</h1>
-                    <p className="text-[16px] leading-[16px] text-black">{props.desc}</p>
-                    {props.type !== 'hotel' && props.type !== 'journal' && (
-                        <p className="text-[16px] leading-[16px] text-black">{props.price}</p>
-                    )}
-                </div>
-
-                <div className="flex flex-col gap-4">
-                    <button
-                        onClick={() => {
-                            const url = props.link; // Replace with the actual URL you want to open
-                            window.open(url, '_blank');
-                        }}
-                        className={`py-3 ${getColorClass(props.color)} ${getColorClassTwo(props.color)} border-2 text-[16px] leading-[16px] text-white font-normal`}
-                    >
-                        {hotelStringTwo(props.type)}
-                    </button>
-                    {props.type !== 'hotel' && props.type !== 'journal' && (
-                        <button
-                            className={`bg-none flex relative justify-center items-center py-3 ${getColorClassTwo(props.color)} border-2 text-[16px] leading-[16px] text-black`}
-                        >
-                            <svg className={`absolute left-0 pl-3 w-7 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.5 3.25071L13.2735 8.70902L13.4643 9.29635H14.0819H19.8211L15.178 12.6698L14.6784 13.0328L14.8692 13.6201L16.6427 19.0784L11.9996 15.705L11.5 15.342L11.0004 15.705L6.35727 19.0784L8.13078 13.6201L8.32162 13.0328L7.822 12.6698L3.17888 9.29635H8.91809H9.53565L9.72649 8.70902L11.5 3.25071Z" stroke={`${getColorClassThree(props.color)}`} stroke-width="1.7"/>
-                            </svg>
-                            <span className="text-center">{hotelString(props.type)}</span>
-                        </button>
-                    )}
-                    {(props.type === 'hotel' || props.type === 'journal') && (
-                        <button
-                            className={`bg-none flex relative justify-center items-center py-3 ${getColorClassTwo(props.color)} border-2 text-[16px] leading-[16px] text-black`}
-                        >
-                            <svg className={`absolute left-0 pl-3 w-7 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.5 3.25071L13.2735 8.70902L13.4643 9.29635H14.0819H19.8211L15.178 12.6698L14.6784 13.0328L14.8692 13.6201L16.6427 19.0784L11.9996 15.705L11.5 15.342L11.0004 15.705L6.35727 19.0784L8.13078 13.6201L8.32162 13.0328L7.822 12.6698L3.17888 9.29635H8.91809H9.53565L9.72649 8.70902L11.5 3.25071Z" stroke={`${getColorClassThree(props.color)}`} stroke-width="1.7"/>
-                            </svg>
-                            <span className="text-center ">{props.type === 'journal' ? 'Add to Inspiration List' : 'Add to Wish List'}</span>
-                        </button>
-                    )}
-                </div>
-            </div>
-
-            {/* Mobile component */}
-
-            <div className="flex flex-col col-span-1 row-span-1 gap-4 md:hidden">
-                <div className={`border ${getColorClassTwo(props.color)}`}>
-                    <div
-                        className={`h-[13rem] w-full bg-no-repeat bg-cover bg-center`}
-                        style={{
-                            backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${Image})`,
-                        }}
-                    ></div>
-                </div>
-
-                <div className="flex flex-col items-center gap-1">
-                    <h1 className="text-[14px] leading-[14px] text-black">{props.name}</h1>
-                    <p className="text-[12px] leading-[12px] text-black">{props.desc}</p>
-                    {props.type !== 'hotel' && props.type !== 'journal' && (
-                        <p className="text-[12px] leading-[12px] text-black">{props.price}</p>
-                    )}
-                </div>
-
-                <div className="flex flex-col gap-3">
-                    <button
-                        onClick={() => {
-                            const url = props.link; // Replace with the actual URL you want to open
-                            window.open(url, '_blank');
-                        }}
-                        className={`py-2 text-[10px] ${getColorClass(props.color)} ${getColorClassTwo(props.color)} border text-[10px] leading-[10px] text-white font-normal`}
-                    >
-                        {hotelStringTwo(props.type)}
-                    </button>
-                    {props.type !== 'hotel' && props.type !== 'journal' && (
-                        <button
-                            className={`bg-none flex relative justify-center items-center py-2 ${getColorClassTwo(props.color)} border text-[16px] leading-[16px] text-black`}
-                        >
-                            <svg className={`absolute left-0 pl-3 w-7 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.5 3.25071L13.2735 8.70902L13.4643 9.29635H14.0819H19.8211L15.178 12.6698L14.6784 13.0328L14.8692 13.6201L16.6427 19.0784L11.9996 15.705L11.5 15.342L11.0004 15.705L6.35727 19.0784L8.13078 13.6201L8.32162 13.0328L7.822 12.6698L3.17888 9.29635H8.91809H9.53565L9.72649 8.70902L11.5 3.25071Z" stroke={`${getColorClassThree(props.color)}`} stroke-width="1.7"/>
-                            </svg>
-                            <span className="text-center text-[10px]">{hotelString(props.type)}</span>
-                        </button>
-                    )}
-                    {(props.type === 'hotel' || props.type === 'journal') && (
-                        <button
-                            className={`bg-none relative justify-center items-center hidden py-2 ${getColorClassTwo(props.color)} border text-[16px] leading-[16px] text-black`}
-                        >
-                            <svg className={`absolute left-0 pl-3 w-7 h-auto`} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.5 3.25071L13.2735 8.70902L13.4643 9.29635H14.0819H19.8211L15.178 12.6698L14.6784 13.0328L14.8692 13.6201L16.6427 19.0784L11.9996 15.705L11.5 15.342L11.0004 15.705L6.35727 19.0784L8.13078 13.6201L8.32162 13.0328L7.822 12.6698L3.17888 9.29635H8.91809H9.53565L9.72649 8.70902L11.5 3.25071Z" stroke={`${getColorClassThree(props.color)}`} stroke-width="1.7"/>
-                            </svg>
-                            <span className="text-center text-[10px]">{props.type === 'journal' ? 'Add to Inspiration List' : 'Add to Wish List'}</span> {/* Kanske ta bort add to wishlist för Blogg inlägg. */}
-                        </button>
-                    )}
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <div className={`flex flex-col h-full justify-between col-span-1 row-span-1 gap-5 max-md:gap-4`}>
+      <a href={data.skimlink_url} target="_blank" className={`border-2 p-0 m-0 w-full h-[14rem] relative overflow-hidden group ${colorClassTwo}`}>
+        <div className={`h-full w-full absolute bg-no-repeat bg-cover bg-center opacity-100 group-hover:opacity-0 duration-300 transition-opacity ease-in-out`} style={{backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${data.product_image})`}}></div>
+        <div className={`h-full w-full absolute bg-no-repeat bg-cover bg-center opacity-0 group-hover:opacity-100 duration-300 transition-opacity ease-in-out`} style={{backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${data.gallery_image})`}}></div>
+      </a>
+      <div className="flex flex-col items-center gap-2 max-md:gap-1">
+        <h1 className="text-[20px] text-black overflow-hidden text-center max-md:text-[14px] max-md:leading-[14px]">{data.title}</h1>
+        <p className="text-[16px] leading-[16px] text-black max-md:text-[12px] max-md:leading-[12px]">{truncateDescription(data.product_description)}</p>
+        {data.category !== "hotels" && <p className="text-[16px] leading-[16px] text-black max-md:text-[12px] max-md:leading-[12px]">{data.price} €</p>}
+      </div>
+      <div className="flex flex-col gap-4 max-md:gap-3">
+        <button 
+          onClick={() => window.open(data.skimlink_url, "_blank")} 
+          className={`py-3 ${btnBuy} ${colorClassTwo} border-2 text-[16px] leading-[16px] text-white font-normal max-md:py-1 max-md:text-[10px] max-md:leading-[10px]">{`} 
+          style={{ backgroundColor: goToProductBg }}>
+          Go to product
+        </button>
+        <button 
+          onClick={handleToggleWishlist} 
+          className={`bg-none group transition-all duration-300 ease-in-out flex relative justify-center items-center py-3 ${btnColor} border-2 text-[16px] leading-[16px] max-md:text-[10px] max-md:leading-[10px] text-black hover:bg-opacity-70 hover:text-white hover:${colorClassTwo} max-md:py-2`}>
+          <MdStarOutline className="absolute left-0 pl-5 h-5 w-auto opacity-100 group-hover:opacity-0 duration-300 transition-all ease-in-out max-md:h-3.5" color="#000" fill="#000" size={15} />
+          <MdStarOutline className="absolute left-0 pl-5 h-5 w-auto opacity-0 group-hover:opacity-100 duration-300 transition-all ease-in-out max-md:h-3.5" color="#000" fill="#fff" size={15} />
+          <span className="text-center">{wishlisted ? "Remove from Wishlist" : "Add to Wishlist"}</span>
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default Product;
