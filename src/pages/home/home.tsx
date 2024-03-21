@@ -1,3 +1,5 @@
+import useScrollToTop from "../../utils/ScrollToTop";
+
 import {
   SectionOne,
   SectionTwo,

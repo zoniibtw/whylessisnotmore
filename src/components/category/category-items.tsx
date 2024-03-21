@@ -60,7 +60,7 @@ const CategoryItems: FC<CategoryProps> = ({
         <Section>
           <div className="w-full flex py-[5%]">
             <div className="w-[30%] flex justify-start items-start max-lg:w-[40%]">
-              <div className="flex flex-col justify-center text-center gap-2 h-[14rem]">
+              <div className="flex flex-col justify-center text-center gap-2 h-[20rem]">
                 <div className="flex flex-col gap-2">
                   <h3 className="text-[16px] leading-[16px] text-[#222]">
                     {category}

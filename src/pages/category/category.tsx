@@ -1,6 +1,5 @@
-// src/pages/category/category.tsx
 import React, { useState, useEffect } from "react";
-import useScrollToTop from "../../utils/useScrollToTop";
+import useScrollToTop from "../../utils/ScrollToTop";
 import { CategoryBanner, CategoryViewall, Product } from "../../components";
 import InteriorsImage from "../../assets/wepb/categories/interior.webp";
 import StyleImage from "../../assets/wepb/categories/style.webp";
@@ -24,7 +23,6 @@ interface ProductData {
 }
 
 function Category({ selectedCategory, color }: CategoryProps) {
-  useScrollToTop();
   const [categoryImage, setCategoryImage] = useState<string | null>(null);
   const [categoryTitle, setCategoryTitle] = useState<string>("");
   const [categoryText, setCategoryText] = useState<string>("");

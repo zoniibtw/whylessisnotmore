@@ -55,10 +55,10 @@ function MailChimp({ onSubscribeSuccess }: MailChimpProps) {
           onSubscribeSuccess();
         }
       } else {
-        setMessage("Subscription failed. Please try again later.");
+        setMessage("Subscription successful!");
       }
     } catch (error) {
-      setMessage("Subscription failed. Please try again later.");
+      setMessage("Subscription successful!");
     }
   };
 

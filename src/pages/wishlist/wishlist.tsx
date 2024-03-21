@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CategoryBanner, Section, Product } from "../../components";
 import Image from "../../assets/wepb/categories/wishlist.webp";
-import useScrollToTop from "../../utils/useScrollToTop";
 import { CSSTransition } from "react-transition-group";
 
 interface SlideProps {
@@ -30,21 +29,24 @@ const Slide: React.FC<SlideProps> = ({ children }) => {
   );
 };
 
-function WishList() {
-  useScrollToTop();
-  const slidesData = [
-    { title: "Hotels", content: "Content for Hotels slide.", category: "hotels" },
-    { title: "Style", content: "Content for Style slide.", category: "style" },
-    { title: "Interiors", content: "Content for Interiors slide.", category: "interiors" },
-  ];
+const slidesData: { title: string; content: string; category: string }[] = [
+  { title: "Hotels", content: "Content for Hotels slide.", category: "hotels" },
+  { title: "Style", content: "Content for Style slide.", category: "style" },
+  { title: "Interiors", content: "Content for Interiors slide.", category: "interiors" },
+];
 
-  const [activeSlide, setActiveSlide] = useState(0);
+const WishList: React.FC = () => {
+  const [activeSlide, setActiveSlide] = useState<number | null>(null);
   const [wishlistData, setWishlistData] = useState<ProductData[]>([]);
 
   useEffect(() => {
     // Retrieve wishlist data from local storage
-    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const storedWishlist: ProductData[] = JSON.parse(localStorage.getItem("wishlist") || "[]");
     setWishlistData(storedWishlist);
+
+    // Determine the first slide to display based on the presence of wishlist items
+    const firstSlideIndex = slidesData.findIndex(slide => storedWishlist.some((item: ProductData) => item.category === slide.category));
+    setActiveSlide(firstSlideIndex !== -1 ? firstSlideIndex : 0);
   }, []);
 
   const filterWishlistByCategory = (category: string) => {
@@ -107,31 +109,6 @@ function WishList() {
     }
   };
 
-  const getType = () => {
-    switch (activeSlide) {
-      case 0:
-        return "hotel";
-      case 1:
-      case 2:
-        return "standard";
-      default:
-        return "standard"; // Set a default value
-    }
-  };
-
-  const getColor = () => {
-    switch (activeSlide) {
-      case 0:
-        return "gold";
-      case 1:
-        return "blue";
-      case 2:
-        return "pink";
-      default:
-        return "purple"; // Set a default value
-    }
-  };
-
   return (
     <>
       <CategoryBanner
@@ -160,7 +137,7 @@ function WishList() {
             {/* Slide container with sliding effect */}
             <div
               className="slide-container"
-              style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+              style={{ transform: `translateX(-${activeSlide! * 100}%)` }}
             >
               {slidesData.map((slide, index) => (
                 <div key={index} className="slide">

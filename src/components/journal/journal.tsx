@@ -6,7 +6,7 @@ interface JournalProps {
   data: {
     title: string;
     post_content: string;
-    skimlink_url: string;
+    blog_url: string;
     post_image: string;
     gallery_image: string;
     category: string;
@@ -17,7 +17,7 @@ const JournalItem: React.FC<JournalProps> = ({ data }) => {
   const {
     title,
     post_content,
-    skimlink_url,
+    blog_url,
     post_image,
     gallery_image,
     category,
@@ -38,10 +38,10 @@ const JournalItem: React.FC<JournalProps> = ({ data }) => {
         className={`flex h-full justify-between flex-col col-span-1 row-span-1 gap-5`}
       >
         <a
-          href={skimlink_url}
+          href={blog_url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`border-2 p-0 m-0 w-full h-[14rem] relative overflow-hidden hover:cursor-pointer group border-strong-pink`}
+          className={`border-2 p-0 m-0 w-full h-[20rem] relative overflow-hidden hover:cursor-pointer group border-strong-pink`}
         >
           <div
             className={`h-full w-full absolute bg-no-repeat bg-cover bg-center group-hover:scale-110 duration-300 transition-all ease-in-out`}
@@ -50,7 +50,7 @@ const JournalItem: React.FC<JournalProps> = ({ data }) => {
             }}
           ></div>
         </a>
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col gap-2">
           <h1 className="text-[20px] leading-[22px] text-black max-md:text-[14px]">
             {title}
           </h1>
@@ -60,7 +60,7 @@ const JournalItem: React.FC<JournalProps> = ({ data }) => {
         </div>
         <div className="flex flex-col gap-4">
           <button
-            onClick={() => window.open(skimlink_url, "_blank")}
+            onClick={() => window.open(blog_url, "_blank")}
             className={`py-3 border-strong-pink bg-strong-pink border-2 text-[16px] leading-[16px] text-white font-normal duration-300 transition-all ease-in-out hover:bg-opacity-70`}
           >
             Read more

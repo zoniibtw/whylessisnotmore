@@ -84,13 +84,13 @@ function Product({ data, isWishlisted, onToggleWishlist }: ProductProps) {
 
   return (
     <div className={`flex flex-col h-full justify-between col-span-1 row-span-1 gap-5 max-md:gap-4`}>
-      <a href={data.skimlink_url} target="_blank" className={`border-2 p-0 m-0 w-full h-[14rem] relative overflow-hidden group ${colorClassTwo}`}>
+      <a href={data.skimlink_url} target="_blank" className={`border-2 p-0 m-0 w-full h-[20rem] relative overflow-hidden group ${colorClassTwo}`}>
         <div className={`h-full w-full absolute bg-no-repeat bg-cover bg-center opacity-100 group-hover:opacity-0 duration-300 transition-opacity ease-in-out`} style={{backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${data.product_image})`}}></div>
         <div className={`h-full w-full absolute bg-no-repeat bg-cover bg-center opacity-0 group-hover:opacity-100 duration-300 transition-opacity ease-in-out`} style={{backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${data.gallery_image})`}}></div>
       </a>
       <div className="flex flex-col items-center gap-2 max-md:gap-1">
         <h1 className="text-[20px] text-black overflow-hidden text-center max-md:text-[14px] max-md:leading-[14px]">{data.title}</h1>
-        <p className="text-[16px] leading-[16px] text-black max-md:text-[12px] max-md:leading-[12px]">{truncateDescription(data.product_description)}</p>
+        <p title={data.product_description} className="text-[16px] leading-[16px] text-black max-md:text-[12px] max-md:leading-[12px] hover:cursor-pointer">{truncateDescription(data.product_description)}</p>
         {data.category !== "hotels" && <p className="text-[16px] leading-[16px] text-black max-md:text-[12px] max-md:leading-[12px]">{data.price} €</p>}
       </div>
       <div className="flex flex-col gap-4 max-md:gap-3">
@@ -103,8 +103,8 @@ function Product({ data, isWishlisted, onToggleWishlist }: ProductProps) {
         <button 
           onClick={handleToggleWishlist} 
           className={`bg-none group transition-all duration-300 ease-in-out flex relative justify-center items-center py-3 ${btnColor} border-2 text-[16px] leading-[16px] max-md:text-[10px] max-md:leading-[10px] text-black hover:bg-opacity-70 hover:text-white hover:${colorClassTwo} max-md:py-2`}>
-          <MdStarOutline className="absolute left-0 pl-5 h-5 w-auto opacity-100 group-hover:opacity-0 duration-300 transition-all ease-in-out max-md:h-3.5" color="#000" fill="#000" size={15} />
-          <MdStarOutline className="absolute left-0 pl-5 h-5 w-auto opacity-0 group-hover:opacity-100 duration-300 transition-all ease-in-out max-md:h-3.5" color="#000" fill="#fff" size={15} />
+          <MdStarOutline className="absolute left-0 pl-5 h-5 w-auto opacity-100 group-hover:opacity-0 duration-300 transition-all ease-in-out max-md:h-3.5 max-md:pl-2" color="#000" fill="#000" size={15} />
+          <MdStarOutline className="absolute left-0 pl-5 h-5 w-auto opacity-0 group-hover:opacity-100 duration-300 transition-all ease-in-out max-md:h-3.5 max-md:pl-2" color="#000" fill="#fff" size={15} />
           <span className="text-center">{wishlisted ? "Remove from Wishlist" : "Add to Wishlist"}</span>
         </button>
       </div>

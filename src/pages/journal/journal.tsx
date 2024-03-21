@@ -1,9 +1,8 @@
 import { CategoryBanner, JournalViewall } from "../../components";
 import Banner from "../../assets/wepb/categories/journal.webp";
-import useScrollToTop from "../../utils/useScrollToTop";
+import useScrollToTop from "../../utils/ScrollToTop";
 
 function Journal() {
-  useScrollToTop();
   return (
     <>
       <CategoryBanner

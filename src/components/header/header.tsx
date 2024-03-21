@@ -53,32 +53,32 @@ function Header() {
                 />
               </Link>
 
-              {/* I want the menu below this comment to have an pointer (which will be de border pointing upward) pointing towards the star icon */}
-
               <div
-                className={`absolute -ml-4 mt-3.5 border-2 border-[#222] bg-[#fff] py-8 px-12 opacity-0 
+                className={`absolute -ml-4 opacity-0 
                 ${
                   isHovered ? "flex opacity-100" : "hidden opacity-0"
                 } duration-300 transition-all ease-in-out`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <div className="w-4 h-4 border-t-2 border-r-2 bg-[#fff] border-[#222] -rotate-45 absolute left-0 top-0 ml-4 -mt-[9px]"></div>
-                <div className="w-full h-full flex flex-col justify-center items-center gap-3 relative">
-                  <h1 className="text-xl tracking-wider text-[#222]">
-                    Wish List
-                  </h1>
-                  <p className="text-[16px] text-[#222] w-[22rem] text-center">
-                    Our platform offers a convenient way to collect, curate, and
-                    save all your cherished items in various categories. Start
-                    curating your world today!
-                  </p>
-                  <Link
-                    className="w-full mt-2 text-[16px] text-center bg-[#222] text-[#fff] py-2 hover:bg-opacity-70 duration-300 transition-all"
-                    to="/wishlist"
-                  >
-                    View Wish List
-                  </Link>
+                <div className="mt-3.5 border-2 border-[#222] bg-[#fff] py-8 px-12">
+                  <div className="w-4 h-4 border-t-2 border-r-2 bg-[#fff] border-[#222] -rotate-45 absolute left-0 top-0 ml-5 mt-[6px]"></div>
+                  <div className="w-full h-full flex flex-col justify-center items-center gap-3 relative">
+                    <h1 className="text-xl tracking-wider text-[#222]">
+                      Wish List
+                    </h1>
+                    <p className="text-[16px] text-[#222] w-[22rem] text-center">
+                      Our platform offers a convenient way to collect, curate, and
+                      save all your cherished items in various categories. Start
+                      curating your world today!
+                    </p>
+                    <Link
+                      className="w-full mt-2 text-[16px] text-center bg-[#222] text-[#fff] py-2 hover:bg-opacity-70 duration-300 transition-all"
+                      to="/wishlist"
+                    >
+                      View Wish List
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

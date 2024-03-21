@@ -9,7 +9,7 @@ interface JournalData {
   title: string;
   post_content: string;
   post_image: string;
-  skimlink_url: string;
+  blog_url: string;
   gallery_image: string;
   category: string;
 }
