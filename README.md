@@ -38,3 +38,15 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ## ------------------------------------------------------------
 
 ## About this React, TypeScript & Tailwind CSS project
+
+### You can find back-end php code for generating .json files from Wordpress to build under "utils".
+
+So on the host, we are using a subdomain called: admin.domain-name.com - where our Wordpress Controlpanel are available for Louisa Falkenberg being
+able to make changes for products, blog posts and so on. She can also add products there. With the help of the php codes that are located in that sub-domain
+it generates json files that are readable for this react, typescript -app and is being ran by cron jobs set to every 1 minute.
+
+There is each one php file for each function (products and blog posts), for products it is "get_product_data.php" and for blog posts "get_blog_posts.php" which is located in the root folder for the subdomain and it creates .json data files to the default domain.
+
+You can see the file structure under un the Siteground file-manager.
+
+Everything else than the products, and blog posts are handled here manually in the code.
