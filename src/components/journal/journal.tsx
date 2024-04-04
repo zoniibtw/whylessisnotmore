@@ -50,18 +50,18 @@ const JournalItem: React.FC<JournalProps> = ({ data }) => {
             }}
           ></div>
         </a>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-[20px] leading-[22px] text-black max-md:text-[14px]">
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="text-[20px] text-black text-center max-md:text-[14px]">
             {title}
           </h1>
-          <p className="text-[16px] leading-[19px] text-black overflow-hidden overflow-ellipsis max-md:text-[12px]">
+          <p className="text-[16px] leading-[19px] text-center text-black overflow-hidden overflow-ellipsis max-md:text-[12px]">
             {truncateContent(post_content)}
           </p>
         </div>
         <div className="flex flex-col gap-4">
           <button
             onClick={() => window.open(blog_url, "_blank")}
-            className={`py-3 border-strong-pink bg-strong-pink border-2 text-[16px] leading-[16px] text-white font-normal duration-300 transition-all ease-in-out hover:bg-opacity-70`}
+            className={`py-3 border-strong-pink bg-strong-pink border-2 text-[16px] max-md:text-[10px] max-md:py-1 text-white font-normal duration-300 transition-all ease-in-out hover:bg-opacity-70`}
           >
             Read more
           </button>

@@ -89,14 +89,14 @@ function Product({ data, isWishlisted, onToggleWishlist }: ProductProps) {
         <div className={`h-full w-full absolute bg-no-repeat bg-cover bg-center opacity-0 group-hover:opacity-100 duration-300 transition-opacity ease-in-out`} style={{backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${data.gallery_image})`}}></div>
       </a>
       <div className="flex flex-col items-center gap-2 max-md:gap-1">
-        <h1 className="text-[20px] text-black overflow-hidden text-center max-md:text-[14px] max-md:leading-[14px]">{data.title}</h1>
-        <p title={data.product_description} className="text-[16px] leading-[16px] text-black max-md:text-[12px] max-md:leading-[12px] hover:cursor-pointer">{truncateDescription(data.product_description)}</p>
-        {data.category !== "hotels" && <p className="text-[16px] leading-[16px] text-black max-md:text-[12px] max-md:leading-[12px]">{data.price} €</p>}
+        <h1 className="text-[20px] text-black overflow-hidden text-center max-md:text-[14px]">{data.title}</h1>
+        <p title={data.product_description} className="text-[16px] text-center text-black max-md:text-[12px] hover:cursor-pointer">{truncateDescription(data.product_description)}</p>
+        {data.category !== "hotels" && <p className="text-[16px] text-center text-black max-md:text-[12px]">{data.price} €</p>}
       </div>
       <div className="flex flex-col gap-4 max-md:gap-3">
         <button 
           onClick={() => window.open(data.skimlink_url, "_blank")} 
-          className={`py-3 ${btnBuy} ${colorClassTwo} border-2 text-[16px] leading-[16px] text-white font-normal max-md:py-1 max-md:text-[10px] max-md:leading-[10px]">{`} 
+          className={`py-3 ${btnBuy} ${colorClassTwo} border-2 text-[16px] text-white font-normal max-md:py-1 max-md:text-[10px]`} 
           style={{ backgroundColor: goToProductBg }}>
           Go to product
         </button>

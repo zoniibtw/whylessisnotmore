@@ -65,7 +65,7 @@ function Header() {
                   <div className="w-4 h-4 border-t-2 border-r-2 bg-[#fff] border-[#222] -rotate-45 absolute left-0 top-0 ml-5 mt-[6px]"></div>
                   <div className="w-full h-full flex flex-col justify-center items-center gap-3 relative">
                     <h1 className="text-xl tracking-wider text-[#222]">
-                      Wish List
+                      Wishlist
                     </h1>
                     <p className="text-[16px] text-[#222] w-[22rem] text-center">
                       Our platform offers a convenient way to collect, curate, and
@@ -76,7 +76,7 @@ function Header() {
                       className="w-full mt-2 text-[16px] text-center bg-[#222] text-[#fff] py-2 hover:bg-opacity-70 duration-300 transition-all"
                       to="/wishlist"
                     >
-                      View Wish List
+                      View Wishlist
                     </Link>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ function Header() {
               {isHomePage ? (
                 <>
                   <button onClick={() => scrollTo("interiors")}>
-                    <span>Interiors</span>
+                    <span>Interior</span>
                   </button>
                   <button onClick={() => scrollTo("style")}>
                     <span>Style</span>
@@ -101,7 +101,7 @@ function Header() {
               ) : (
                 <>
                   <Link to="/interiors">
-                    <span>Interiors</span>
+                    <span>Interior</span>
                   </Link>
                   <Link to="/style">
                     <span>Style</span>
@@ -173,8 +173,10 @@ function Header() {
       </header>
 
       {/* Mobile header */}
-      <header className="lg:hidden">
-        <div className="flex justify-between items-center px-[5%] py-[15px] z-50">
+      <header className={`header h-[8vh] flex relative items-center w-full lg:hidden transition-transform duration-300 ${
+          isHidden ? "-translate-y-full" : ""
+        }`}>
+        <div className="flex justify-between w-full items-center px-10 py-[15px] z-50">
           <div className="max-md:hidden">
             <Link to="/wishlist">
               <MdStarOutline size={25} fill="#222" />
@@ -218,7 +220,7 @@ function Header() {
         </div>
         {isMenuOpen && (
           <div
-            className={`lg:hidden bg-gray-100 flex flex-col items-start pl-5 gap-4 bg-white w-full py-5 ${isMenuOpen ? "absolute -mt-1 z-50" : ""}`}
+            className={`lg:hidden bg-gray-100 flex flex-col items-start px-5 gap-4 bg-white w-full py-5 mt-[55vh] ${isMenuOpen ? "absolute z-50" : ""}`}
           >
             {isHomePage ? (
               <>
@@ -229,7 +231,7 @@ function Header() {
                   }}
                 >
                   <span className="text-[22px] uppercase font-light">
-                    Interiors
+                    Interior
                   </span>
                 </button>
                 <button
@@ -269,7 +271,7 @@ function Header() {
                 </Link>
                 <Link to="/wishlist" onClick={closeMenu}>
                   <span className="text-[22px] uppercase font-light">
-                    Wish List
+                    Wishlist
                   </span>
                 </Link>
                 <button
@@ -287,7 +289,7 @@ function Header() {
               <>
                 <Link to="/interiors" onClick={closeMenu}>
                   <span className="text-[22px] uppercase font-light">
-                    Interiors
+                    Interior
                   </span>
                 </Link>
                 <Link to="/style" onClick={closeMenu}>
@@ -312,7 +314,7 @@ function Header() {
                 </Link>
                 <Link to="/wishlist" onClick={closeMenu}>
                   <span className="text-[22px] uppercase font-light">
-                    Wish List
+                    Wishlist
                   </span>
                 </Link>
                 <button
