@@ -96,7 +96,7 @@ function Product({ data, isWishlisted, onToggleWishlist }: ProductProps) {
       <div className="flex flex-col gap-4 max-md:gap-3">
         <button 
           onClick={() => window.open(data.skimlink_url, "_blank")} 
-          className={`py-3 ${btnBuy} ${colorClassTwo} border-2 text-[16px] text-white font-normal max-md:py-1 max-md:text-[10px]`} 
+          className={`py-2 ${btnBuy} ${colorClassTwo} border-2 text-[16px] text-white font-normal max-md:py-1 max-md:text-[10px]`} 
           style={{ backgroundColor: goToProductBg }}>
           Go to product
         </button>
