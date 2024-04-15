@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { CategoryBanner, Section, Product } from "../../components";
-import Image from "../../assets/wepb/categories/wishlist.webp";
-import { CSSTransition } from "react-transition-group";
+import defaultWishlistImage from "../../assets/wepb/categories/wishlist.webp";  // Default image path
 
 interface SlideProps {
   children: React.ReactNode;
@@ -21,6 +21,10 @@ interface ProductData {
   gallery_image: string;
 }
 
+interface CategoryImages {
+  wishlist: string;
+}
+
 const Slide: React.FC<SlideProps> = ({ children }) => {
   return (
     <div className="w-full grid grid-cols-4 grid-rows-1 gap-x-10 gap-y-14 max-lg:grid-cols-3 max-md:grid-cols-2">
@@ -38,111 +42,104 @@ const slidesData: { title: string; content: string; category: string }[] = [
 const WishList: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState<number | null>(null);
   const [wishlistData, setWishlistData] = useState<ProductData[]>([]);
+  const [wishlistImage, setWishlistImage] = useState<string>(defaultWishlistImage);
 
   useEffect(() => {
-    // Retrieve wishlist data from local storage
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("/get_banner_category.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch category images");
+        }
+        const data: CategoryImages = await response.json();
+        if (data.wishlist) {
+          setWishlistImage(data.wishlist);
+        }
+      } catch (error) {
+        console.error("Error fetching category images:", error);
+      }
+    };
+
+    fetchImages();
+
     const storedWishlist: ProductData[] = JSON.parse(localStorage.getItem("wishlist") || "[]");
     setWishlistData(storedWishlist);
-
-    // Determine the first slide to display based on the presence of wishlist items
-    const firstSlideIndex = slidesData.findIndex(slide => storedWishlist.some((item: ProductData) => item.category === slide.category));
+    const firstSlideIndex = slidesData.findIndex(slide => storedWishlist.some(item => item.category === slide.category));
     setActiveSlide(firstSlideIndex !== -1 ? firstSlideIndex : 0);
   }, []);
 
-  const filterWishlistByCategory = (category: string) => {
-    return wishlistData.filter((product) => product.category === category);
-  };
+  const filterWishlistByCategory = (category: string) => wishlistData.filter((product) => product.category === category);
 
   const renderProductsForSlide = (category: string) => {
     const products = filterWishlistByCategory(category);
+
+    const emptyCategoryMessages: { [key: string]: string } = {
+      hotels: "Add your favourite hotels",
+      style: "Add items to your wishlist",
+      interiors: "Add items to your wishlist",
+    };
+
+    const emptyMessage = emptyCategoryMessages[category] || "Empty, discover more here.";
+    const emptyLink = `/${category}`;
+
+    if (products.length === 0) {
+      return (
+        <div className="flex col-span-4 h-full justify-center items-center">
+          <div className="flex flex-col items-center">
+            <p>{emptyMessage}</p>
+            <Link to={emptyLink} className="underline">
+              Discover here.
+            </Link>
+          </div>
+        </div>
+      );
+    }
     return products.map((product) => (
       <Product
         key={product.id}
         data={product}
-        isWishlisted={true} // Assuming all products in the wishlist are wishlisted
+        isWishlisted={true}
         onToggleWishlist={() => {}}
       />
     ));
   };
 
   const getButtonColor = (index: number) => {
-    const activeColor = getActiveButtonColor();
-    return `border w-3 h-3 rounded-full ${index === activeSlide ? activeColor : "border"}`;
-  };
-
-  const getBorderColor = (index: number) => {
-    switch (activeSlide) {
-      case 0:
-        return "border-strong-gold";
-      case 1:
-        return "border-strong-blue";
-      case 2:
-        return "border-strong-pink";
-      default:
-        return "";
-    }
-  };
-
-  const getActiveButtonColor = () => {
-    switch (activeSlide) {
-      case 0:
-        return "bg-strong-gold";
-      case 1:
-        return "bg-strong-blue";
-      case 2:
-        return "bg-strong-pink";
-      default:
-        return "border";
-    }
+    const colors = ["bg-strong-gold", "bg-strong-blue", "bg-strong-pink"];
+    return `border w-3 h-3 rounded-full ${index === activeSlide ? colors[index] : "border"}`;
   };
 
   const getBackgroundClass = () => {
-    switch (activeSlide) {
-      case 0:
-        return "bg-light-gold";
-      case 1:
-        return "bg-light-blue";
-      case 2:
-        return "bg-light-pink";
-      default:
-        return "";
-    }
+    const colors = ["bg-light-gold", "bg-light-blue", "bg-light-pink"];
+    return colors[activeSlide ?? 0];
   };
 
   return (
     <>
       <CategoryBanner
-        title="Wish List"
+        title="Wishlist"
         text="Our platform offers a convenient way to collect, curate, and save all your cherished items in various categories. Whether it's interiors, style, hotels, or any other treasure you stumble upon."
-        image={Image}
+        image={wishlistImage}
         color="green"
         flow="default"
       />
-      <div
-        className={`pb-[5%] pt-[2.5%] transition-colors ${getBackgroundClass()} max-md:pt-8 max-md:pb-0`}
-      >
+      <div className={`pb-[5%] pt-[2.5%] transition-colors ${getBackgroundClass()} max-md:pt-8 max-md:pb-8`}>
         <Section>
           <div className="flex w-full justify-center gap-4 pb-[2.5%] max-md:pb-8 max-md:pt-0">
-            {/* Slide buttons */}
             {slidesData.map((slide, index) => (
               <button
                 title={slide.title}
                 key={index}
-                className={`${getButtonColor(index)} ${getBorderColor(index)}`}
+                className={getButtonColor(index)}
                 onClick={() => setActiveSlide(index)}
-              ></button>
+              />
             ))}
           </div>
           <div className="flex w-full overflow-hidden">
-            {/* Slide container with sliding effect */}
-            <div
-              className="slide-container"
-              style={{ transform: `translateX(-${activeSlide! * 100}%)` }}
-            >
+            <div className="slide-container" style={{ transform: `translateX(-${activeSlide! * 100}%)` }}>
               {slidesData.map((slide, index) => (
                 <div key={index} className="slide">
                   <Slide title={slide.title} content={slide.content}>
-                    {/* Render products for the current slide's category */}
                     {renderProductsForSlide(slide.category)}
                   </Slide>
                 </div>
@@ -153,6 +150,6 @@ const WishList: React.FC = () => {
       </div>
     </>
   );
-}
+};
 
 export default WishList;

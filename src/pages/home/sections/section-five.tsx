@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CategoryItems, CategoryBanner } from "../../../components";
-import Journal from "../../../components/journal/journal"; // Assuming this is the correct import path
-import Image from "../../../assets/wepb/categories/journal.webp";
+import Journal from "../../../components/journal/journal"; // Verify this is the correct import path for your Journal component
+import defaultJournalImage from "../../../assets/wepb/categories/journal.webp";
 
 // Define a type for the journal data
 interface JournalData {
@@ -14,12 +14,30 @@ interface JournalData {
   category: string;
 }
 
+interface CategoryImages {
+  journal: string;
+}
+
 function SectionFive() {
-  const [latestJournalPosts, setLatestJournalPosts] = useState<JournalData[]>(
-    [],
-  );
+  const [latestJournalPosts, setLatestJournalPosts] = useState<JournalData[]>([]);
+  const [journalImage, setJournalImage] = useState<string>(defaultJournalImage);
 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("/get_banner_category.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch images");
+        }
+        const data: CategoryImages = await response.json();
+        if (data.journal) {
+          setJournalImage(data.journal);
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
     const fetchData = async () => {
       try {
         const response = await fetch("/journals.json");
@@ -34,6 +52,7 @@ function SectionFive() {
       }
     };
 
+    fetchImages();
     fetchData();
   }, []);
 
@@ -44,7 +63,7 @@ function SectionFive() {
         text="From ELLE Sweden contributor to a more personal perspective: Dive into the world of our founder, 
                 Louisa Falkenberg, as she spills the beans on Interior Secrets, Hidden Gems, and the Life of a 
                 Mom wrangling two tiny toddlers."
-        image={Image}
+        image={journalImage}
         color="pink"
         flow="reverse"
       />
@@ -54,7 +73,6 @@ function SectionFive() {
         category="The journal"
         url="/journal"
       >
-        {/* Render the JournalItem component for each journal post */}
         {latestJournalPosts.map((post) => (
           <Journal key={post.id} data={post} />
         ))}

@@ -42,8 +42,8 @@ if ($query->have_posts()) {
         // Sanitize post content
         $post_content = strip_tags(get_the_content());
         
-        // Sanitize post title
-        $post_title = htmlspecialchars(get_the_title(), ENT_QUOTES, 'UTF-8');
+        // Decode HTML entities in post title
+        $post_title = html_entity_decode(get_the_title(), ENT_QUOTES | ENT_XML1, 'UTF-8');
         
         $blog_post = array(
             'id' => get_the_ID(),

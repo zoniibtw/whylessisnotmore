@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useScrollToTop from "../../utils/ScrollToTop";
 import { CategoryBanner, CategoryViewall, Product } from "../../components";
-import InteriorsImage from "../../assets/wepb/categories/interior.webp";
-import StyleImage from "../../assets/wepb/categories/style.webp";
-import HotelImage from "../../assets/wepb/categories/hotel.webp";
 
 interface CategoryProps {
   selectedCategory: string | null;
@@ -22,13 +19,40 @@ interface ProductData {
   gallery_image: string;
 }
 
+interface CategoryImages {
+  hero_page: string;
+  interior: string;
+  style: string;
+  hotels: string;
+  journal: string;
+  story: string;
+  wishlist: string;
+  cookies: string;
+}
+
 function Category({ selectedCategory, color }: CategoryProps) {
+  const [categoryImages, setCategoryImages] = useState<CategoryImages | null>(null);
   const [categoryImage, setCategoryImage] = useState<string | null>(null);
   const [categoryTitle, setCategoryTitle] = useState<string>("");
   const [categoryText, setCategoryText] = useState<string>("");
   const [products, setProducts] = useState<ProductData[]>([]);
 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("/get_banner_category.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch category images");
+        }
+        const data: CategoryImages = await response.json();
+        setCategoryImages(data);
+      } catch (error) {
+        console.error("Error fetching category images:", error);
+      }
+    };
+
+    fetchImages();
+    // Fetch product data as well
     const fetchData = async () => {
       try {
         const response = await fetch("/products.json");
@@ -46,26 +70,27 @@ function Category({ selectedCategory, color }: CategoryProps) {
   }, []);
 
   useEffect(() => {
+    if (!categoryImages) return;
     switch (selectedCategory) {
       case "interiors":
-        setCategoryImage(InteriorsImage);
+        setCategoryImage(categoryImages.interior);
         setCategoryTitle("Interiors");
         setCategoryText(
-          "Your home is a canvas of your personality. Whether you lean towards elegant minimalism or embrace vibrant chic, we've scoured the market to unveil a meticulously curated collection of our absolute favorite pieces.",
+          "Your home is a canvas of your personality. Whether you lean towards elegant minimalism or embrace vibrant chic, we've scoured the market to unveil a meticulously curated collection of our absolute favorite pieces."
         );
         break;
       case "style":
-        setCategoryImage(StyleImage);
+        setCategoryImage(categoryImages.style);
         setCategoryTitle("Style");
         setCategoryText(
-          "Discover the epitome of elegance and sophistication in our thoughtfully assembled collection of timeless classics and cutting-edge fashion pieces. Our very own expression of lasting allure.",
+          "Discover the epitome of elegance and sophistication in our thoughtfully assembled collection of timeless classics and cutting-edge fashion pieces. Our very own expression of lasting allure."
         );
         break;
       case "hotels":
-        setCategoryImage(HotelImage);
+        setCategoryImage(categoryImages.hotels);
         setCategoryTitle("Hotels");
         setCategoryText(
-          "Passion for travel runs deep within us, and we invite you to join in the adventure. Explore a world of charm with our handpicked collection of unique hotels across the globe. Each one promises an unforgettable stay and a touch of enchantment.",
+          "Passion for travel runs deep within us, and we invite you to join in the adventure. Explore a world of charm with our handpicked collection of unique hotels across the globe. Each one promises an unforgettable stay and a touch of enchantment."
         );
         break;
       default:
@@ -74,15 +99,14 @@ function Category({ selectedCategory, color }: CategoryProps) {
         setCategoryText("");
         break;
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, categoryImages]);
 
   const filteredProducts = selectedCategory
     ? products.filter(
-        (product) => product.category.toLowerCase() === selectedCategory,
+        (product) => product.category.toLowerCase() === selectedCategory
       )
     : [];
 
-  // Define functions to handle wishlist functionality
   const [wishlist, setWishlist] = useState<number[]>([]);
 
   const toggleWishlist = (productId: number) => {
@@ -110,9 +134,7 @@ function Category({ selectedCategory, color }: CategoryProps) {
           <Product
             key={product.id}
             data={product}
-            // Pass isWishlisted prop based on whether the product ID is in the wishlist
             isWishlisted={wishlist.includes(product.id)}
-            // Pass onToggleWishlist function to handle toggling wishlist status
             onToggleWishlist={() => toggleWishlist(product.id)}
           />
         ))}

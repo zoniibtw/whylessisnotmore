@@ -48,12 +48,13 @@ if ($query->have_posts()) {
         $skimlink_url = str_replace('\\/', '/', $skimlink_url);
         
         $product_description = strip_tags(get_the_content());
+        $product_title = html_entity_decode(get_the_title(), ENT_QUOTES | ENT_XML1, 'UTF-8'); // Decode HTML entities in title
         $product = array(
             'id' => get_the_ID(),
-            'title' => get_the_title(),
+            'title' => $product_title,
             'price' => get_post_meta(get_the_ID(), '_price', true),
             'category' => $category,
-            'skimlink_url' => $skimlink_url, // Use Skimlink URL instead of affiliate_product_url
+            'skimlink_url' => $skimlink_url,
             'product_description' => $product_description,
             'product_image' => $product_image,
             'gallery_image' => $gallery_image_url
@@ -63,7 +64,7 @@ if ($query->have_posts()) {
 }
 
 // Convert products array to JSON
-$json_data = json_encode($products);
+$json_data = json_encode($products, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 // Write JSON data to the file
 if (file_put_contents($file_path, $json_data) === false) {

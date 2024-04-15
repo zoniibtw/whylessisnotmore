@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Section } from "../../components";
-import defaultStoryImage from "../../assets/wepb/story.webp";
+import defaultConsultantImage from "../../assets/wepb/consultant.webp";
 import { Fade, Reveal } from "react-awesome-reveal";
 import { keyframes } from "@emotion/react";
 
@@ -17,11 +17,11 @@ const customAnimation = keyframes`
 `;
 
 interface CategoryImages {
-  story: string;
+  consultant: string; // Corrected key for consultant image
 }
 
-function Story() {
-  const [storyImage, setStoryImage] = useState<string>(defaultStoryImage);
+function Consultant() {
+  const [consultantImage, setConsultantImage] = useState<string>(defaultConsultantImage);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -31,8 +31,8 @@ function Story() {
           throw new Error("Failed to fetch category images");
         }
         const data: CategoryImages = await response.json();
-        if (data.story) {
-          setStoryImage(data.story);
+        if (data.consultant) { // Corrected key for consultant image
+          setConsultantImage(data.consultant);
         }
       } catch (error) {
         console.error("Error fetching category images:", error);
@@ -50,9 +50,9 @@ function Story() {
             <div className="w-1/2">
               <Fade triggerOnce>
                 <div
-                  className="bg-cover bg-no-repeat bg-right max-w-[35rem] w-[80%] h-[40rem]"
+                  className="bg-cover bg-no-repeat bg-right max-w-[35rem] w-[80%] h-[28rem]"
                   style={{
-                    backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${storyImage})`,
+                    backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${consultantImage})`,
                   }}
                 ></div>
               </Fade>
@@ -62,19 +62,10 @@ function Story() {
               <div className="flex flex-col gap-5 pr-36">
                 <Reveal keyframes={customAnimation} triggerOnce cascade>
                   <h1 className="text-[36px] leading-[36px] text-[#222]">
-                    A personal view of beauty
+                    Interior Consulting
                   </h1>
                   <p className="text-[18px] leading-[22px] text-[#222]">
-                    With a background working in fashion, interior design and
-                    high-end real estate, our founder Louisa Falkenberg has
-                    experience building homes, curating spaces and beautifying
-                    your way of living. Louisa is currently based in her
-                    home-town Stockholm, having spent several years abroad
-                    soaking up cultures from around the world. She has a passion
-                    for travelling to new cities to explore wonderful
-                    one-of-a-kind shops, markets and hotels. Louisa finds beauty
-                    everywhere she goes and we are excited to share her world
-                    with you.
+                  To discuss a project or schedule an interior consultation, simply email us at <a href="mailto:falkenberglouisa@gmail.com" className="hover:underline">falkenberglouisa@gmail.com</a>
                   </p>
                 </Reveal>
               </div>
@@ -90,9 +81,9 @@ function Story() {
           <div className="flex flex-col w-full py-[10%] gap-10">
             <div className="w-full">
               <div
-                className="bg-cover bg-no-repeat bg-right w-full h-[45vh] mt-10"
+                className="bg-cover bg-no-repeat bg-right w-full h-[43vh] mt-10"
                 style={{
-                  backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${storyImage})`,
+                  backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 32, 0), rgba(15, 25, 32, 0)), url(${consultantImage})`,
                 }}
               ></div>
             </div>
@@ -100,19 +91,10 @@ function Story() {
             <div className="w-full flex flex-col items-center justify-center mb-10">
               <div className="flex flex-col gap-5">
                 <h1 className="text-[25px] leading-[25px] text-[#222] text-center">
-                  A personal view of beauty
+                  Interior Consulting
                 </h1>
                 <p className="text-[14px] leading-[18px] text-[#222] text-center">
-                  With a background working in fashion, interior design and
-                    high-end real estate, our founder Louisa Falkenberg has
-                    experience building homes, curating spaces and beautifying
-                    your way of living. Louisa is currently based in her
-                    home-town Stockholm, having spent several years abroad
-                    soaking up cultures from around the world. She has a passion
-                    for travelling to new cities to explore wonderful
-                    one-of-a-kind shops, markets and hotels. Louisa finds beauty
-                    everywhere she goes and we are excited to share her world
-                    with you.
+                    To discuss a project or schedule an interior consultation, simply email us at <a href="mailto:falkenberglouisa@gmail.com" className="hover:underline">falkenberglouisa@gmail.com</a>
                 </p>
               </div>
             </div>
@@ -123,4 +105,4 @@ function Story() {
   );
 }
 
-export default Story;
+export default Consultant;

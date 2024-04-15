@@ -2,7 +2,7 @@
 import React from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import { Header, Footer, Newsletter, CookiePopup } from "./components";
-import { Home, Category, Journal, WishList, Story, Policy } from "./pages";
+import { Home, Category, Journal, WishList, Story, Policy, Consultant } from "./pages";
 import ScrollToTop from "./utils/ScrollToTop";
 import "./styles/tailwind.css";
 import "./styles/scrollbar.css";
@@ -32,6 +32,7 @@ function App() {
         <Route path="/journal" element={<Journal />} />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="/story" element={<Story />} />
+        <Route path="/consultant" element={<Consultant />} />
         <Route path="/cookie-policy" element={<Policy />} />
       </Routes>
       <Footer />

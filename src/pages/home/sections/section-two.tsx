@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { CategoryItems, CategoryBanner, Product } from "../../../components";
-import Interiors from "../../../assets/wepb/categories/interior.webp";
+import defaultInteriorsImage from "../../../assets/wepb/categories/interior.webp";
 
 // Define a type for the products
 interface ProductData {
@@ -15,10 +15,30 @@ interface ProductData {
   gallery_image: string;
 }
 
+interface CategoryImages {
+  interior: string;
+}
+
 function SectionTwo() {
   const [interiorProducts, setInteriorProducts] = useState<ProductData[]>([]);
+  const [interiorImage, setInteriorImage] = useState<string>(defaultInteriorsImage);
 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("/get_banner_category.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch images");
+        }
+        const data: CategoryImages = await response.json();
+        if (data.interior) {
+          setInteriorImage(data.interior);
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
     const fetchData = async () => {
       try {
         const response = await fetch("/products.json");
@@ -38,6 +58,7 @@ function SectionTwo() {
       }
     };
 
+    fetchImages();
     fetchData();
   }, []);
 
@@ -57,7 +78,7 @@ function SectionTwo() {
       <CategoryBanner
         title="Interiors"
         text="Your home is a canvas of your personality. Whether you lean towards elegant minimalism or embrace vibrant chic, we've scoured the market to unveil a meticulously curated collection of our absolute favorite pieces."
-        image={Interiors}
+        image={interiorImage}
         color="purple"
         flow="default"
       />
@@ -67,14 +88,11 @@ function SectionTwo() {
         category="Interiors"
         url="/interiors"
       >
-        {/* Render the Product component for each interior product */}
         {interiorProducts.map((product) => (
           <Product
             key={product.id}
             data={product}
-            // Pass isWishlisted prop based on whether the product ID is in the wishlist
             isWishlisted={wishlist.includes(product.id)}
-            // Pass onToggleWishlist function to handle toggling wishlist status
             onToggleWishlist={() => toggleWishlist(product.id)}
           />
         ))}

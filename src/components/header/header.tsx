@@ -9,6 +9,9 @@ function Header() {
   const [scrollY, setScrollY] = useState(0);
   const [isHidden, setIsHidden] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track menu open/closed
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -23,15 +26,14 @@ function Header() {
     };
   }, [scrollY]);
 
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
-
-  // Function to close the dropdown menu
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
-  const [isHovered, setIsHovered] = useState(false);
+  const handleNavigation = (sectionId: string) => {
+    scrollTo(sectionId);
+    closeMenu();
+  };
 
   return (
     <>
@@ -141,9 +143,9 @@ function Header() {
                   <Link to="/story">
                     <span>Story</span>
                   </Link>
-                  <button onClick={() => scrollTo("contact")}>
-                    <span>Contact</span>
-                  </button>
+                  <Link to="/consultant">
+                    <span>Consultant</span>
+                  </Link>
                 </>
               ) : (
                 <>
@@ -153,9 +155,9 @@ function Header() {
                   <Link to="/story">
                     <span>Story</span>
                   </Link>
-                  <button onClick={() => scrollTo("contact")}>
-                    <span>Contact</span>
-                  </button>
+                  <Link to="/consultant">
+                    <span>Consultant</span>
+                  </Link>
                 </>
               )}
             </div>
@@ -173,160 +175,72 @@ function Header() {
       </header>
 
       {/* Mobile header */}
-      <header className={`header h-[8vh] flex relative items-center w-full lg:hidden transition-transform duration-300 ${
-          isHidden ? "-translate-y-full" : ""
-        }`}>
+      <header className={`header h-[8vh] flex relative items-center w-full lg:hidden transition-transform duration-300 ${isHidden ? "-translate-y-full" : ""}`}>
         <div className="flex justify-between w-full items-center px-10 py-[15px] z-50">
-          <div className="max-md:hidden">
-            <Link to="/wishlist">
-              <MdStarOutline size={25} fill="#222" />
-            </Link>
-          </div>
-          {isHomePage ? (
-            <a
-              onClick={() => {
-                scrollTo("hero");
-                closeMenu();
-              }}
-              className="uppercase tracking max-md:text-[22px] hover:cursor-pointer"
-            >
-              Whylessisnotmore
-            </a>
-          ) : (
-            <Link
-              onClick={() => {
-                closeMenu();
-              }}
-              to="/"
-              className="uppercase tracking max-md:text-[22px]"
-            >
-              Whylessisnotmore
-            </Link>
-          )}
+          <Link to="/">
+            <h1 className="text-lg uppercase">Whylessisnotmore</h1>
+          </Link>
           <button
-            className={`text-xl h-4 w-5 flex flex-col justify-between ${isMenuOpen ? "relative pt-1.5" : ""}`}
+            className={`text-xl h-4 w-6 flex justify-center items-center relative ${isMenuOpen ? "open" : ""}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            style={{ padding: '0', boxSizing: 'border-box' }}
           >
-            <div
-              className={`h-[1px] w-full bg-black transform origin-center transition duration-300 ${isMenuOpen ? "rotate-45 absolute" : ""}`}
-            ></div>
-            <div
-              className={`h-[1px] w-full bg-black transition duration-300 ${isMenuOpen ? "opacity-0 hidden" : ""}`}
-            ></div>
-            <div
-              className={`h-[1px] w-full bg-black transform origin-center transition duration-300 ${isMenuOpen ? "-rotate-45 absolute" : ""}`}
-            ></div>
+            <span
+              className={`block h-0.5 w-full bg-black absolute transform transition duration-300 ease-in-out ${isMenuOpen ? "rotate-45" : "rotate-0"}`}
+              style={{
+                top: '100%', // Initially position for the top bar of the hamburger
+                transform: `${isMenuOpen ? "translateY(-10px) rotate(45deg)" : "translateY(0) rotate(0)"}`,
+                transformOrigin: 'center'
+              }}
+            ></span>
+            <span
+              className={`block h-0.5 w-full bg-black absolute transition-opacity duration-300 ease-in-out ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+              style={{ top: '50%' }} // Middle bar remains the same and fades out when opened
+            ></span>
+            <span
+              className={`block h-0.5 w-full bg-black absolute transform transition duration-300 ease-in-out ${isMenuOpen ? "-rotate-45" : "rotate-0"}`}
+              style={{
+                top: '0%', // Initially position for the bottom bar of the hamburger
+                transform: `${isMenuOpen ? "translateY(6px) rotate(-45deg)" : "translateY(0) rotate(0)"}`,
+                transformOrigin: 'center'
+              }}
+            ></span>
           </button>
         </div>
         {isMenuOpen && (
           <div
-            className={`lg:hidden bg-gray-100 flex flex-col items-start px-5 gap-4 bg-white w-full py-5 mt-[55vh] ${isMenuOpen ? "absolute z-50" : ""}`}
+            className="absolute top-full left-0 w-full bg-white flex flex-col items-start px-5 gap-4 py-4 z-50"
+            style={{ boxShadow: "0 2px 5px rgba(0,0,0,0.2)" }}
           >
             {isHomePage ? (
               <>
-                <button
-                  onClick={() => {
-                    scrollTo("interiors");
-                    closeMenu();
-                  }}
-                >
-                  <span className="text-[22px] uppercase font-light">
-                    Interior
-                  </span>
+                <button className="text-lg uppercase py-1" onClick={() => handleNavigation("interiors")}>
+                  <span>Interiors</span>
                 </button>
-                <button
-                  onClick={() => {
-                    scrollTo("style");
-                    closeMenu();
-                  }}
-                >
-                  <span className="text-[22px] uppercase font-light">
-                    Style
-                  </span>
+                <button className="text-lg uppercase py-1" onClick={() => handleNavigation("style")}>
+                  <span>Style</span>
                 </button>
-                <button
-                  onClick={() => {
-                    scrollTo("hotels");
-                    closeMenu();
-                  }}
-                >
-                  <span className="text-[22px] uppercase font-light">
-                    Hotels
-                  </span>
+                <button className="text-lg uppercase py-1" onClick={() => handleNavigation("hotels")}>
+                  <span>Hotels</span>
                 </button>
-                <button
-                  onClick={() => {
-                    scrollTo("journal");
-                    closeMenu();
-                  }}
-                >
-                  <span className="text-[22px] uppercase font-light">
-                    Journal
-                  </span>
+                <button className="text-lg uppercase py-1" onClick={() => handleNavigation("journal")}>
+                  <span>Journal</span>
                 </button>
                 <Link to="/story" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Story
-                  </span>
+                  <span className="text-lg uppercase py-1">Story</span>
                 </Link>
-                <Link to="/wishlist" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Wishlist
-                  </span>
+                <Link to="/consultant" onClick={closeMenu}>
+                  <span className="text-lg uppercase py-1">Consultant</span>
                 </Link>
-                <button
-                  onClick={() => {
-                    scrollTo("contactMobile");
-                    closeMenu();
-                  }}
-                >
-                  <span className="text-[22px] uppercase font-light">
-                    Contact
-                  </span>
-                </button>
               </>
             ) : (
               <>
-                <Link to="/interiors" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Interior
-                  </span>
-                </Link>
-                <Link to="/style" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Style
-                  </span>
-                </Link>
-                <Link to="/hotels" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Hotels
-                  </span>
-                </Link>
-                <Link to="/journal" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Journal
-                  </span>
-                </Link>
-                <Link to="/story" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Story
-                  </span>
-                </Link>
-                <Link to="/wishlist" onClick={closeMenu}>
-                  <span className="text-[22px] uppercase font-light">
-                    Wishlist
-                  </span>
-                </Link>
-                <button
-                  onClick={() => {
-                    scrollTo("contactMobile");
-                    closeMenu();
-                  }}
-                >
-                  <span className="text-[22px] uppercase font-light">
-                    Contact
-                  </span>
-                </button>
+                <Link to="/interiors" onClick={closeMenu}><span className="text-lg uppercase py-1">Interiors</span></Link>
+                <Link to="/style" onClick={closeMenu}><span className="text-lg uppercase py-1">Style</span></Link>
+                <Link to="/hotels" onClick={closeMenu}><span className="text-lg uppercase py-1">Hotels</span></Link>
+                <Link to="/journal" onClick={closeMenu}><span className="text-lg uppercase py-1">Journal</span></Link>
+                <Link to="/story" onClick={closeMenu}><span className="text-lg uppercase py-1">Story</span></Link>
+                <Link to="/consultant" onClick={closeMenu}><span className="text-lg uppercase py-1">Consultant</span></Link>
               </>
             )}
           </div>

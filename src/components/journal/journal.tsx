@@ -41,7 +41,7 @@ const JournalItem: React.FC<JournalProps> = ({ data }) => {
           href={blog_url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`border-2 p-0 m-0 w-full h-[20rem] relative overflow-hidden hover:cursor-pointer group border-strong-pink`}
+          className={`border-2 p-0 m-0 w-full h-[20rem] relative overflow-hidden hover:cursor-pointer group border-strong-pink max-md:h-[15rem]`}
         >
           <div
             className={`h-full w-full absolute bg-no-repeat bg-cover bg-center group-hover:scale-110 duration-300 transition-all ease-in-out`}
@@ -61,7 +61,7 @@ const JournalItem: React.FC<JournalProps> = ({ data }) => {
         <div className="flex flex-col gap-4">
           <button
             onClick={() => window.open(blog_url, "_blank")}
-            className={`py-3 border-strong-pink bg-strong-pink border-2 text-[16px] max-md:text-[10px] max-md:py-1 text-white font-normal duration-300 transition-all ease-in-out hover:bg-opacity-70`}
+            className={`py-2 border-strong-pink bg-strong-pink border-2 text-[16px] max-md:text-[10px] max-md:py-1 text-white font-normal duration-300 transition-all ease-in-out hover:bg-opacity-70`}
           >
             Read more
           </button>

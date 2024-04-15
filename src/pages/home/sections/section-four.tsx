@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CategoryItems, CategoryBanner, Product } from "../../../components";
-import Hotel from "../../../assets/wepb/categories/hotel.webp";
+import defaultHotelImage from "../../../assets/wepb/categories/hotel.webp";
 
 // Define a type for the products
 interface ProductData {
@@ -15,11 +15,31 @@ interface ProductData {
   gallery_image: string;
 }
 
+interface CategoryImages {
+  hotels: string;
+}
+
 function SectionFour() {
   const [hotelsProducts, setHotelsProducts] = useState<ProductData[]>([]);
+  const [hotelImage, setHotelImage] = useState<string>(defaultHotelImage);
   const [wishlist, setWishlist] = useState<number[]>([]);
 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("/get_banner_category.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch images");
+        }
+        const data: CategoryImages = await response.json();
+        if (data.hotels) {
+          setHotelImage(data.hotels);
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
     const fetchData = async () => {
       try {
         const response = await fetch("/products.json");
@@ -39,6 +59,7 @@ function SectionFour() {
       }
     };
 
+    fetchImages();
     fetchData();
   }, []);
 
@@ -56,7 +77,7 @@ function SectionFour() {
       <CategoryBanner
         title="Hotels"
         text="Discover the epitome of elegance and sophistication in our thoughtfully assembled collection of timeless classics and cutting-edge fashion pieces. Our very own expression of lasting allure."
-        image={Hotel}
+        image={hotelImage}
         color="gold"
         flow="default"
       />
@@ -66,14 +87,11 @@ function SectionFour() {
         category="Hotels"
         url="/hotels"
       >
-        {/* Render the Product component for each hotel product */}
         {hotelsProducts.map((product) => (
           <Product
             key={product.id}
             data={product}
-            // Pass isWishlisted prop based on whether the product ID is in the wishlist
             isWishlisted={wishlist.includes(product.id)}
-            // Pass onToggleWishlist function to handle toggling wishlist status
             onToggleWishlist={() => toggleWishlist(product.id)}
           />
         ))}

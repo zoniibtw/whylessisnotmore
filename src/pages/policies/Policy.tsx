@@ -1,15 +1,40 @@
-// Policy.tsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CategoryBanner, Section } from "../../components";
-import Image from "../../assets/wepb/hero-bg.webp";
+import defaultCookieImage from "../../assets/wepb/hero-bg.webp";  // Use this as default if fetch fails
+
+interface CategoryImages {
+  cookies: string;
+}
 
 function Policy() {
+  const [cookieImageUrl, setCookieImageUrl] = useState<string>(defaultCookieImage);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("/get_banner_category.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch category images");
+        }
+        const data: CategoryImages = await response.json();
+        if (data.cookies) {
+          setCookieImageUrl(data.cookies);
+        }
+      } catch (error) {
+        console.error("Error fetching category images:", error);
+        // Retain the default image in case of fetch failure
+      }
+    };
+
+    fetchImages();
+  }, []);
+
   return (
     <>
       <CategoryBanner
         title="Cookie Policy"
         text="This is a description for Cookie Policies."
-        image={Image}
+        image={cookieImageUrl}
         color="green"
       />
       <div className="bg-[#adbdac] py-[5%]">
@@ -20,10 +45,11 @@ function Policy() {
 }
 
 function PolicyContainer() {
+  // The rest of your component remains unchanged
   return (
     <Section>
       <div className="flex w-full flex-col gap-8">
-        <div className="flex flex-col w-full items-center gap-2">
+      <div className="flex flex-col w-full items-center gap-2">
           <h1 className="text-[#fff] font-semibold text-lg">
             Cookie Policy for whylessisnotmore.com
           </h1>
