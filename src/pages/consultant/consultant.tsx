@@ -65,7 +65,7 @@ function Consultant() {
                     Interior Consulting
                   </h1>
                   <p className="text-[18px] leading-[22px] text-[#222]">
-                  To discuss a project or schedule an interior consultation, simply email us at <a href="mailto:falkenberglouisa@gmail.com" className="hover:underline">falkenberglouisa@gmail.com</a>
+                  To discuss a project or schedule an interior consultation, simply email us at <a href="mailto:inquiries@whylessisnotmore.com" className="hover:underline">inquiries@whylessisnotmore.com</a>
                   </p>
                 </Reveal>
               </div>
