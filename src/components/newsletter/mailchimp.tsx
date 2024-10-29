@@ -10,6 +10,7 @@ function MailChimp({ onSubscribeSuccess }: MailChimpProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState(""); // Error state
   const [postUrl, setPostUrl] = useState("");
 
   useEffect(() => {
@@ -25,17 +26,44 @@ function MailChimp({ onSubscribeSuccess }: MailChimpProps) {
     fetchPostUrl();
   }, []);
 
+  const validateForm = () => {
+    if (!name) {
+      setError("Please enter your name.");
+      return false;
+    }
+    if (!email) {
+      setError("Please enter your email.");
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email address.");
+      return false;
+    }
+    setError(""); // Clear error if all validations pass
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!validateForm()) return; // Only proceed if form is valid
+
     if (!postUrl) {
       console.error("Mailchimp post URL is not available");
+      setMessage("Unable to subscribe at this time. Please try again later.");
+      return;
+    }
+
+    // Check if email is already in localStorage to simulate "already subscribed" feedback
+    const subscribedEmails = JSON.parse(localStorage.getItem("subscribedEmails") || "[]");
+    if (subscribedEmails.includes(email)) {
+      setMessage("You have already signed up.");
       return;
     }
 
     const formData = new URLSearchParams();
-    formData.append("EMAIL", email); // Use 'EMAIL' for the email field
-    formData.append("FNAME", name); // Use 'FNAME' for the first name field
+    formData.append("EMAIL", email);
+    formData.append("FNAME", name);
 
     try {
       const response = await fetch(postUrl, {
@@ -44,21 +72,24 @@ function MailChimp({ onSubscribeSuccess }: MailChimpProps) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
+        mode: "no-cors", // Bypass CORS error; results in opaque response
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.subscribed) {
-          setMessage("You are already subscribed.");
-        } else {
-          setMessage("Subscription successful!");
-          onSubscribeSuccess();
-        }
-      } else {
+      // Assuming success due to opaque response
+      if (response.ok || response.type === "opaque") {
         setMessage("Subscription successful!");
+        setName(""); // Clear name field
+        setEmail(""); // Clear email field
+        onSubscribeSuccess();
+
+        // Add email to localStorage to simulate "already subscribed"
+        subscribedEmails.push(email);
+        localStorage.setItem("subscribedEmails", JSON.stringify(subscribedEmails));
+      } else {
+        setMessage("There was an error with your subscription. Please try again later.");
       }
     } catch (error) {
-      setMessage("Subscription successful!");
+      setMessage("An error occurred. Please try again later.");
     }
   };
 
@@ -84,6 +115,7 @@ function MailChimp({ onSubscribeSuccess }: MailChimpProps) {
       >
         Subscribe
       </button>
+      {error && <p className="text-red-600 text-xs">{error}</p>} {/* Display error message */}
       {message && <p className="text-xs">{message}</p>}
     </form>
   );
