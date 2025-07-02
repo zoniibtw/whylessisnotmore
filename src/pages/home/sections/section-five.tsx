@@ -5,13 +5,11 @@ import defaultJournalImage from "../../../assets/wepb/categories/journal.webp";
 
 // Define a type for the journal data
 interface JournalData {
-  id: number;
+  id: string;
   title: string;
-  post_content: string;
-  post_image: string;
-  blog_url: string;
-  gallery_image: string;
-  category: string;
+  link: string;
+  image: string;
+  pubDate: string;
 }
 
 interface CategoryImages {
@@ -40,7 +38,7 @@ function SectionFive() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("/journals.json");
+        const response = await fetch("/rss_feed_posts.json");
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }

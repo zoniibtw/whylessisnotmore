@@ -8,12 +8,11 @@ interface JournalProps {
 }
 
 interface JournalData {
+  id: string;
   title: string;
-  post_content: string;
-  blog_url: string;
-  post_image: string;
-  gallery_image: string;
-  category: string;
+  link: string;
+  image: string;
+  pubDate: string;
 }
 
 const JournalViewall: FC<JournalProps> = ({ children }) => {
@@ -22,7 +21,7 @@ const JournalViewall: FC<JournalProps> = ({ children }) => {
   useEffect(() => {
     const fetchJournalData = async () => {
       try {
-        const response = await fetch("/journals.json");
+        const response = await fetch("/rss_feed_posts.json");
         if (!response.ok) {
           throw new Error("Failed to fetch journal data");
         }
