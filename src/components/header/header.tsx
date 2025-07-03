@@ -96,6 +96,9 @@ function Header() {
                   <button onClick={() => scrollTo("style")}>
                     <span>Style</span>
                   </button>
+                  <button onClick={() => scrollTo("kids")}>
+                    <span>Kids</span>
+                  </button>
                   <button onClick={() => scrollTo("hotels")}>
                     <span>Hotels</span>
                   </button>
@@ -107,6 +110,9 @@ function Header() {
                   </Link>
                   <Link to="/style">
                     <span>Style</span>
+                  </Link>
+                  <Link to="/kids">
+                    <span>Kids</span>
                   </Link>
                   <Link to="/hotels">
                     <span>Hotels</span>
@@ -143,6 +149,9 @@ function Header() {
                   <Link to="/story">
                     <span>Story</span>
                   </Link>
+                  <Link to="/portfolio">
+                    <span>Portfolio</span>
+                  </Link>
                   <Link to="/consultant">
                     <span>Consultant</span>
                   </Link>
@@ -154,6 +163,9 @@ function Header() {
                   </Link>
                   <Link to="/story">
                     <span>Story</span>
+                  </Link>
+                  <Link to="/portfolio">
+                    <span>Portfolio</span>
                   </Link>
                   <Link to="/consultant">
                     <span>Consultant</span>
@@ -220,12 +232,18 @@ function Header() {
                 <button className="text-lg uppercase py-1" onClick={() => handleNavigation("style")}>
                   <span>Style</span>
                 </button>
+                <button className="text-lg uppercase py-1" onClick={() => handleNavigation("kids")}>
+                  <span>Kids</span>
+                </button>
                 <button className="text-lg uppercase py-1" onClick={() => handleNavigation("hotels")}>
                   <span>Hotels</span>
                 </button>
                 <button className="text-lg uppercase py-1" onClick={() => handleNavigation("journal")}>
                   <span>Journal</span>
                 </button>
+                <Link to="/portfolio" onClick={closeMenu}>
+                  <span className="text-lg uppercase py-1">Portfolio</span>
+                </Link>
                 <Link to="/story" onClick={closeMenu}>
                   <span className="text-lg uppercase py-1">Story</span>
                 </Link>
@@ -237,8 +255,10 @@ function Header() {
               <>
                 <Link to="/interiors" onClick={closeMenu}><span className="text-lg uppercase py-1">Interiors</span></Link>
                 <Link to="/style" onClick={closeMenu}><span className="text-lg uppercase py-1">Style</span></Link>
+                <Link to="/kids" onClick={closeMenu}><span className="text-lg uppercase py-1">Kids</span></Link>
                 <Link to="/hotels" onClick={closeMenu}><span className="text-lg uppercase py-1">Hotels</span></Link>
                 <Link to="/journal" onClick={closeMenu}><span className="text-lg uppercase py-1">Journal</span></Link>
+                <Link to="/portfolio" onClick={closeMenu}><span className="text-lg uppercase py-1">Portfolio</span></Link>
                 <Link to="/story" onClick={closeMenu}><span className="text-lg uppercase py-1">Story</span></Link>
                 <Link to="/consultant" onClick={closeMenu}><span className="text-lg uppercase py-1">Consultant</span></Link>
               </>
