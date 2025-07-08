@@ -1,9 +1,9 @@
 import React from "react";
 
-function Kids() {
+function Checkout() {
     return(
         <div></div>
     );
 }
 
-export default Kids;
+export default Checkout;

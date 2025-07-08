@@ -6,7 +6,7 @@ import Journal from "./journal/journal";
 import Policy from "./policies/Policy";
 import Consultant from "./consultant/consultant";
 import Portfolio from "./portfolio/portfolio";
-import Kids from "./kids/kids";
+import Shop from "./shop/shop";
 
 export {
   Category,
@@ -17,5 +17,5 @@ export {
   Policy,
   Consultant,
   Portfolio,
-  Kids,
+  Shop,
 };

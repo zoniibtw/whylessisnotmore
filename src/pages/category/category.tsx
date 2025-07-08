@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import useScrollToTop from "../../utils/ScrollToTop";
 import { CategoryBanner, CategoryViewall, Product } from "../../components";
 
 interface CategoryProps {
