@@ -164,9 +164,13 @@ function Header() {
                   <Link to="/story">
                     <span>Story</span>
                   </Link>
-                  <Link to="/portfolio">
-                    <span>Portfolio</span>
-                  </Link>
+                  <button
+                    onClick={() => {
+                      window.open("https://www.instagram.com/whylessisnotmore/", "_blank");
+                    }}
+                  >
+                    <span className="text-lg uppercase py-1">Instagram</span>
+                  </button>
                   <Link to="/consultant">
                     <span>Consultant</span>
                   </Link>
@@ -241,9 +245,14 @@ function Header() {
                 <button className="text-lg uppercase py-1" onClick={() => handleNavigation("journal")}>
                   <span>Journal</span>
                 </button>
-                <Link to="/portfolio" onClick={closeMenu}>
-                  <span className="text-lg uppercase py-1">Portfolio</span>
-                </Link>
+                <button
+                  onClick={() => {
+                    closeMenu();
+                    window.open("https://www.instagram.com/whylessisnotmore/", "_blank");
+                  }}
+                >
+                  <span className="text-lg uppercase py-1">Instagram</span>
+                </button>
                 <Link to="/story" onClick={closeMenu}>
                   <span className="text-lg uppercase py-1">Story</span>
                 </Link>
@@ -258,7 +267,14 @@ function Header() {
                 <Link to="/kids" onClick={closeMenu}><span className="text-lg uppercase py-1">Kids</span></Link>
                 <Link to="/hotels" onClick={closeMenu}><span className="text-lg uppercase py-1">Hotels</span></Link>
                 <Link to="/journal" onClick={closeMenu}><span className="text-lg uppercase py-1">Journal</span></Link>
-                <Link to="/portfolio" onClick={closeMenu}><span className="text-lg uppercase py-1">Portfolio</span></Link>
+                <button
+                  onClick={() => {
+                    closeMenu();
+                    window.open("https://www.instagram.com/whylessisnotmore/", "_blank");
+                  }}
+                >
+                  <span className="text-lg uppercase py-1">Instagram</span>
+                </button>
                 <Link to="/story" onClick={closeMenu}><span className="text-lg uppercase py-1">Story</span></Link>
                 <Link to="/consultant" onClick={closeMenu}><span className="text-lg uppercase py-1">Consultant</span></Link>
               </>
