@@ -1,7 +1,18 @@
 import React from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import { Header, Footer, Newsletter, CookiePopup } from "./components";
-import { Home, Category, Journal, WishList, Story, Policy, Consultant, Portfolio, Shop } from "./pages";
+import {
+  Home,
+  Category,
+  Journal,
+  WishList,
+  Story,
+  Policy,
+  Consultant,
+  Portfolio,
+  Shop,
+} from "./pages";
+import ProductPage from "./pages/product/ProductPage";
 import ScrollToTop from "./utils/ScrollToTop";
 import "./styles/tailwind.css";
 import "./styles/scrollbar.css";
@@ -28,10 +39,9 @@ function App() {
           path="/hotels"
           element={<Category selectedCategory="hotels" color="gold" />}
         />
-        <Route 
-          path="/kids" 
-          element={<Shop />}
-        />
+        <Route path="/product/:slug" element={<ProductPage />} />
+        <Route path="/kids" element={<Shop />} /> /* For now only showing kids
+        */
         <Route path="/journal" element={<Journal />} />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="/story" element={<Story />} />

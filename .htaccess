@@ -1,0 +1,32 @@
+# This file is for admin.whylessisnotmore.com - temporary, change when we are done with dev.
+
+<IfModule mod_headers.c>
+  Header always unset Access-Control-Allow-Origin
+  Header always set Access-Control-Allow-Origin "http://localhost:3000"
+  Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+  Header always set Access-Control-Allow-Headers "Authorization, Content-Type"
+</IfModule>
+
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^admin\.whylessisnotmore\.com$ [NC]
+RewriteRule ^$ /kontrollpanel [R=301,L]
+
+<FilesMatch "\.json$">
+  ForceType application/json
+</FilesMatch>
